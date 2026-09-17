@@ -33,7 +33,7 @@
 
 \title{\vspace{-1.5em}
   {\large TECHNICAL PROGRESS REPORT}\\[0.6em]
-  {\LARGE\bfseries Source-Linked Compression-Set Data for Silicone Formulations}\\[0.4em]}
+  {\LARGE\bfseries Automated LLM Extraction of Silicone Formulations and Compression-Set Data}\\[0.4em]}
 \author{Bryan V.\ Piguave \and Brett M.\ Savoie\\[0.4em]
   \normalsize Department of Chemical and Biomolecular Engineering, University of Notre Dame\\
   \normalsize Notre Dame, IN 46556, USA\\[0.6em]}
@@ -45,24 +45,27 @@
 % ---------------------------------------------------------------------------
 \section*{Executive summary}
 % ---------------------------------------------------------------------------
-This report summarizes the work completed to assemble a source-linked record
-of silicone formulations and compression-set measurements from patents and
-journal articles. The practical question is whether a documented formulation
-and its test conditions can support useful guidance for seal design without
-requiring a new compression-set experiment for every candidate.
+This report summarizes the development and application of an automated process
+that uses large language models (LLMs) to convert polymer literature into
+source-linked formulation data. Vision-language models read patent and journal
+pages, while LLM-based stages identify relevant silicone examples, recover
+formulation ingredients and property measurements, interpret ingredient roles,
+and connect test conditions reported elsewhere in a document. Each record
+retains the source evidence needed for later checking.
 
-The central result is the funnel shown throughout this report: the search began
-with \nCorpusDocs{} downloaded documents.
-\nPropDocs{} contained at least one extracted property, \nCsDocs{} reported a
-compression-set value, and only \nCsCondDocs{} provided a value together with
-a composition and the three essential test conditions: temperature, time, and
-deflection. After source checking and curation, the current release contains
-\nRelRows{} measurements over \nRelForms{} formulations from \nRelDocs{}
- documents. This narrowing shows how much of the published record is
- sufficiently described to support quantitative comparison.
+Silicone compression set provides the primary demonstration of this process.
+The automated workflow began with \nCorpusDocs{} downloaded documents and
+identified \nPropDocs{} containing at least one property, \nCsDocs{} reporting
+a compression-set value, and \nCsCondDocs{} providing a value together with a
+composition and the three essential test conditions: temperature, time, and
+deflection. After source checking and targeted curation, the current release
+contains \nRelRows{} measurements over \nRelForms{} formulations from
+\nRelDocs{} documents. The funnel measures the yield of the automated process
+and shows where information is lost as stronger scientific requirements are
+applied.
 
-The release also distinguishes the material classes that are important for
-interpreting the data. A formulation is counted as a composite when it
+The same LLM-assisted interpretation assigns ingredient roles that make the
+material classes visible. A formulation is counted as a composite when it
 contains a dispersed filler role, and as a foam when it contains a blowing
 agent role. There are \nCompositeForms{} composite formulations and
 \nFoamForms{} foam formulations. \nCompositeFoamForms{} formulations belong to
@@ -78,13 +81,13 @@ too small, unevenly described, and concentrated in too few source families to
 establish a transferable chemistry effect, although chemistry may still matter
 in a larger and more balanced collection.
 
-Taken together, these results define the present stage of the project. The
-work has moved beyond asking whether the literature contains silicone data at
-all. It now shows how much of that data can be made comparable, what types of
-formulations are represented, which parts of the test protocol are usually
-missing, and what level of prediction can be supported without overstating the
-evidence. The next phase can therefore be organized around specific gaps
-rather than around a general search for more papers.
+Taken together, these results demonstrate an automated and auditable route from
+polymer documents to analysis-ready records. The process can read thousands of
+documents, preserve full formulations instead of isolated values, expose which
+parts of the test protocol are missing, and classify formulations as composites
+and foams. The next phase can therefore improve specific extraction and coverage
+gaps while extending the same process to additional polymer properties and
+material families.
 
 % ===========================================================================
 \section{What are the major goals of the project?}
@@ -97,22 +100,30 @@ the test protocol. Comparing a value measured after 22~h at 175\degC{} with
 one measured after 70~h at 150\degC{} requires accounting for those different
 temperatures and durations.
 
-The first goal is therefore to gather measurements together with the
-conditions that make them interpretable. The second is to preserve the
-chemistry of the formulation: base polymer, crosslinker, catalyst or
-initiator, fillers, additives, and any blowing agent. Silicone elastomers are
-formulated network materials, and their behavior depends on the network created
-by the cure chemistry, the interaction with fillers, and the processing and
-aging history \citep{mazurek2019silicone,yue2013tensile,patel2004stress}.
+The first goal is to develop an automated LLM-based process that can read a
+large polymer literature collection and recover structured formulations,
+properties, and test conditions. The process must work across patents and
+journal articles whose tables, terminology, languages, and page layouts vary
+substantially. Automation provides the scale, while retained source evidence
+allows every extracted claim to be checked.
+
+The second goal is to preserve the chemistry of each formulation: base polymer,
+crosslinker, catalyst or initiator, fillers, additives, and any blowing agent.
+Silicone elastomers are formulated network materials, and their behavior
+depends on the network created by the cure chemistry, the interaction with
+fillers, and the processing and aging history
+\citep{mazurek2019silicone,yue2013tensile,patel2004stress}. The LLM stages must
+therefore connect information distributed across tables, preparation sections,
+test methods, and product descriptions.
 
 The third goal is to determine what can reasonably be learned from the
-published record. Polymer formulations are difficult to model because the
-design space is large while much of the practical knowledge is recorded in
-qualitative descriptions, patents, and tables with inconsistent terminology
-\citep{audus2017polymer,butler2018machine,ramprasad2017machine}. The project
-therefore asks two separate questions: what information can be recovered and
-checked, and how much predictive value does the recovered chemistry add beyond
-the test conditions themselves?
+automatically assembled record. Polymer formulations are difficult to model
+because the design space is large while much of the practical knowledge is
+recorded in qualitative descriptions, patents, and tables with inconsistent
+terminology \citep{audus2017polymer,butler2018machine,ramprasad2017machine}.
+The project asks how accurately the automated process can recover and organize
+that information, and how much predictive value the recovered chemistry adds
+beyond the test conditions themselves.
 
 These goals are deliberately connected because a prediction becomes useful for
 engineering only when its numerical value can be traced to a source. Without a
@@ -131,54 +142,53 @@ reliable transfer to a new material family.
 % ===========================================================================
 \section{What was accomplished under these goals?}
 % ===========================================================================
-The project established a complete path from a broad literature record to a
-curated set of comparable measurements. Documents were collected from patents
-and journal literature, screened for silicone materials and quantitative
-compression-set results, and read in the context of the surrounding
-formulation and testing descriptions. Duplicate source families were treated
-as one scientific source so that repeated publication of the same work did
-not create artificial evidence.
+The project established an automated path from a broad literature collection
+to a curated set of comparable polymer measurements. Vision-language models
+converted document pages into readable content, and LLM-based stages screened
+for relevant silicone systems, extracted complete recipes and property values,
+resolved ingredient names and functional roles, and recovered test conditions
+from the surrounding document context. Duplicate patent families were treated
+as one scientific source so that repeated publication of the same work did not
+create artificial evidence.
 
-The completed work has two complementary outputs. The first is the research
-record itself: a set of formulations and measurements that can be inspected
-against the pages from which they came. The second is an account of the limits
-of that record. It identifies the points at which a document stops being
-quantitative, the material classes that are present in the surviving
-formulations, and the kinds of uncertainty that remain after careful reading.
-Together, these two outputs support collaboration: the record supports
-analysis, while the limitations identify where expert judgment or new
-experiments are still needed.
+The completed work has three complementary outputs. The first is the automated
+LLM workflow, which can be reapplied as new documents and polymer properties
+are added. The second is the research record itself: a set of formulations and
+measurements that can be inspected against the pages from which they came. The
+third is an account of the workflow's yield and limitations, including where
+documents lack quantitative data, which material classes survive curation, and
+which records still require expert judgment.
 
-Figure~\ref{fig:problem} summarizes how the record is reduced to a defensible
-comparison. Its top panel makes the funnel explicit: each additional
-requirement removes documents that do not
-provide enough information for a defensible comparison. The lower-right panel
-records the material classes in the final release. These classes overlap by
-design, because a filled silicone foam is both a composite and a foam.
+Figure~\ref{fig:problem} summarizes the output of the automated process. Its
+top panel makes the funnel explicit: each additional requirement removes
+documents that lack enough information for a defensible comparison. The funnel
+therefore measures the usable yield of LLM-assisted extraction rather than
+serving as the contribution by itself. The lower-right panel records the
+material classes in the final release. These classes overlap by design, because
+a filled silicone foam is both a composite and a foam.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figures/problem_qualitative_record_vs_quantitative_compression_set_data.png}
-  \caption{\textbf{The record narrows from documents to usable measurements.}
+  \caption{\textbf{Yield of the automated LLM-based literature process.}
   (a) Documents remaining as composition, test protocol, and release-quality
   requirements are applied; row counts are shown where the stage is defined on
   measurements. (b) Information stated in the measurement row itself compared
-  with information recovered from the document as a whole. (c) Formulations
-  classified as composite, foam, both, or neither. Composite means a
-  dispersed-filler role; foam means a blowing-agent role.}
+  with information recovered by reading the document as a whole. (c)
+  Formulations classified from LLM-resolved ingredient roles as composite,
+  foam, both, or neither.}
   \label{fig:problem}
 \end{figure}
 
 \subsection{Major Activities}
-The work had four connected activities. First, the source record was expanded
-without requiring the property to appear in a title or abstract. This was
-important because many patents present compression-set values only in example
-tables. Second, formulations were read as recipes rather than as isolated
-chemical names. Trade names, component labels, filler descriptions, cure
-systems, and amount conventions were retained when they were part of the
-source's description.
+The automated workflow connects document acquisition, model-based reading and
+screening, structured extraction, chemical and test-condition resolution, and
+source verification. Broad retrieval gives the models an opportunity to find
+relevant evidence even when the property appears only in an example table.
+Later stages preserve trade names, component labels, filler descriptions, cure
+systems, and amount conventions as parts of a complete formulation.
 
-\subsubsection{Source discovery and screening}
+\subsubsection{Source discovery and automated screening}
 The source search was designed to favor recall at the beginning and judgment
 later. Silicone terminology varies widely across patents and articles, and a
 document may report compression set only in a long example section. The search
@@ -186,6 +196,13 @@ therefore gathered documents using broad material and application language
 before asking whether a document actually contained the target property. This
 approach retained documents that would have been lost if the property name had
 been required in the title or abstract.
+
+LLM-based screening then evaluated the document content in two stages. The
+first stage asked whether silicone formed the material matrix, and the second
+asked whether the document contained a quantitative compression-set result.
+This sequence allowed the automated process to reject incidental mentions while
+retaining relevant documents whose titles and abstracts gave little indication
+of the property data contained in their tables.
 
 The screening decision also had to distinguish silicone as a matrix from
 silicone as an additive, modifier, crosslinker, or minor component in another
@@ -195,8 +212,25 @@ answer the same question as a silicone elastomer whose network carries the
 load. The current record focuses on the latter so that the measured property
 has a consistent material context.
 
+\subsubsection{LLM-based reading and structured extraction}
+Vision-language models read the rendered document pages so that tables,
+captions, and multilingual patent examples could be interpreted together with
+the surrounding prose. LLM extraction then converted candidate examples into
+structured records containing the formulation components, reported amounts,
+property values, test conditions, page locations, and supporting source text.
+The process preserved values as printed before later stages attempted to
+standardize names or interpret ingredient functions.
+
+The work was divided into stages because the necessary evidence is rarely
+located in one place. One passage may define a trade name, another may give the
+recipe, and a methods paragraph may state the conditions for several tables.
+Document-level LLM reasoning reconnects those pieces while retaining missing
+fields when the source does not support a confident assignment. This staged
+design makes the extraction scalable while allowing errors to be traced to a
+specific reading or interpretation step.
+
 \subsubsection{Formulations as complete recipes}
-The second activity was to read each formulation as a complete recipe. A
+The LLM-based process reads each formulation as a complete recipe. A
 source may identify the base polymer in one paragraph, describe a filler in a
 table, and identify the cure system in a separate preparation step. Those
 pieces cannot be treated as independent observations. They describe one
@@ -211,12 +245,13 @@ carries little information. Trade names and generic descriptions were retained
 when they carried information about the formulation, and uncertain identities
 were kept visibly uncertain rather than replaced with a convenient guess.
 
-Third, test conditions were connected to the measurements to which they
-belong. Temperature, time, deflection, medium, specimen geometry, and stated
-test standard were kept separate because each can change how a compression-set
-value should be interpreted. When a source stated conditions in a methods
-paragraph rather than beside the result, the conditions were connected back to
-the relevant measurements only when the source supported that connection.
+A document-level resolution stage connected test conditions to the measurements
+to which they belong. Temperature, time, deflection, medium, specimen geometry,
+and stated test standard were kept separate because each can change how a
+compression-set value should be interpreted. When a source stated conditions
+in a methods paragraph rather than beside the result, the LLM connected those
+conditions back to the relevant measurements only when the document supported
+that connection.
 
 This step is especially important for aging studies. A source may describe a
 pre-aging exposure, a cure schedule, and a compression-set hold in the same
@@ -226,12 +261,13 @@ The record keeps them distinct so that a future user can ask whether two
 measurements used the same aging history rather than assuming that every
 temperature mentioned in a document was the test temperature.
 
-Fourth, the resulting records were checked against the source pages. A
-stratified audit found the released compression-set value correct in 96.8\% of
-checkable cases, with a Wilson 95\% interval of 94.7--98.1\%. Temperature and
-deflection were correct in every checked case. The audit also identified
-specific table-reading failures and source-family duplicates that would have
-been difficult to detect from numerical consistency alone.
+The resulting records retained supporting text and page locations for checking
+against the source pages. A stratified human audit found the released
+compression-set value correct in 96.8\% of checkable cases, with a Wilson 95\%
+interval of 94.7--98.1\%. Temperature and deflection were correct in every
+checked case. The audit also identified specific table-reading failures and
+source-family duplicates that would have been difficult to detect from
+numerical consistency alone.
 
 Verification was treated as a scientific result in its own right. When a value
 disagreed with a source page, review considered both its numerical plausibility
@@ -242,17 +278,19 @@ wrong protocol. The audit therefore examined the relationships among fields
 as well as the fields themselves.
 
 \subsection{Specific Objectives}
-\textbf{Objective 1 -- Build a quantitative source record.} The project
-converted a dispersed set of patents and articles into a collection in which
-each measurement remains connected to its source document, formulation, and
-test description.
+\textbf{Objective 1 -- Automate polymer-data extraction with LLMs.} The project
+developed a staged process that reads patent and journal pages, identifies
+relevant polymer examples, and converts formulations, properties, and test
+conditions into structured records. Each extracted measurement remains
+connected to its source document, formulation, and supporting test description.
 
-This objective is important for more than citation. Source linkage allows a
-future reader to check whether a number was reported for a neat elastomer, a
-filled material, a foam, or a multi-part system. It also allows a correction
-to remain local. If a source later clarifies a cure condition or a component
-identity, the affected result can be revisited without silently changing
-unrelated measurements.
+This objective addresses the scale and complexity of polymer literature.
+Manual review can resolve individual documents, whereas the LLM workflow can
+apply the same reading questions across thousands of pages and direct human
+attention to uncertain or high-value records. Source linkage allows a future
+reader to check whether a number was reported for a neat elastomer, a filled
+material, a foam, or a multi-part system. It also keeps later corrections tied
+to the affected source evidence.
 
 \textbf{Objective 2 -- Distinguish material classes.} The project now reports
 which released formulations contain dispersed fillers and which contain
@@ -282,32 +320,36 @@ document in which the measurement was originally reported.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figures/pipeline_from_source_discovery_to_grouped_evaluation.png}
-  \caption{\textbf{High-level progression of the work.} The project moves from
-  source discovery, through formulation and test-condition reading, to source
-  checking, material classification, and evaluation. Each stage preserves the
-  connection between a reported value and the document in which it appeared.}
+  \caption{\textbf{Automated LLM-based polymer-data workflow.} Vision-language
+  models read document pages, LLM stages screen relevance and extract complete
+  formulations, and document-level reasoning resolves ingredient roles and test
+  conditions. Source evidence and targeted human review support the final
+  release, material classification, and evaluation.}
   \label{fig:pipeline}
 \end{figure}
 
 % ===========================================================================
 \section{Significant Results}
 % ===========================================================================
-\subsection{The document funnel identifies the quantitative core}
-The funnel begins with \nCorpusDocs{} downloaded documents and ends with
-\nRelDocs{} source documents in the current release. In between, the record
-passes through \nPropDocs{} documents with any extracted property, \nCsDocs{}
-documents with a compression-set value, \nCsCompDocs{} documents with a
-stated composition, and \nCsCondDocs{} documents with a complete test
-protocol. The corresponding compression-set row counts are \nCsRows{} for
-the broad property population, \nCsCompRows{} with a composition, and
-\nCsCondRows{} with all three conditions.
+\subsection{The automated process yields a quantitative core}
+Applying the LLM workflow to \nCorpusDocs{} downloaded documents produced a
+source-linked record that can be followed through each stage of processing.
+The automated screen identified \nPropDocs{} documents with any extracted
+property and \nCsDocs{} documents with a compression-set value. Subsequent
+LLM stages linked \nCsCompDocs{} documents to a stated composition and
+\nCsCondDocs{} documents to a complete test protocol. The corresponding
+compression-set row counts are \nCsRows{} for the broad property population,
+\nCsCompRows{} with a composition, and \nCsCondRows{} with all three
+conditions. Source checking and curation produced the \nRelDocs{} documents in
+the current release.
 
-This sequence is the most important result for planning future work. A large
-number of documents does not automatically create a large modeling dataset.
-The limiting resource is the number of source families that report a complete
-recipe, a measured value, and enough test information for comparison. The
-funnel shows exactly where additional reading and curation can increase the
-usable population.
+This sequence reports the yield of the automated process and guides future
+improvements. A large number of documents does not automatically create a
+large modeling dataset. The limiting resource is the number of source families
+that report a complete recipe, a measured value, and enough test information
+for comparison. The funnel shows which LLM stages recover useful context and
+where additional source coverage or targeted review can increase the usable
+population.
 
 The first reduction is broad: many documents mention a material or a property
 without presenting a numerical measurement that can be used. The second
@@ -616,33 +658,33 @@ property for which the protocol and source coverage are presently most mature.
 % ===========================================================================
 \section{Changes in approach and reasons for change}
 % ===========================================================================
-The work began with the expectation that a large literature search would
-quickly produce a large modeling table. The evidence showed that this
-assumption was too simple. Many documents contain a property value but not a
-complete formulation, and many complete recipes do not provide the test
-conditions needed to compare the value with another source. The project
-therefore shifted emphasis from counting retrieved documents to measuring the
-progressive loss of information through the funnel.
+The workflow evolved from treating literature extraction as a single reading
+task to using several coordinated LLM stages. Broad retrieval supplies the
+candidate documents, vision-language reading preserves information in page
+images and tables, focused LLM stages extract formulations and measurements,
+and document-level reasoning resolves ingredient roles and test conditions.
+Separating these tasks makes each decision easier to inspect and allows an
+affected stage to be improved when an audit reveals a recurring error.
 
-The second change was to treat the source document as the unit of context.
-Early comparisons can make several rows from one patent appear to be many
-independent experiments. In reality, those rows often share the same base
-polymer, preparation history, terminology, and testing convention. Holding out
-source families makes the prediction question more demanding, but it also
-matches the intended use: predicting a material described in a source that was
-not already part of the evidence used to establish the relationship.
+The second change was to treat the source document as the unit of context for
+both extraction and evaluation. An LLM can connect a condition stated in a
+methods section to measurements reported several pages later, while the
+source-linked record preserves that connection for review. During evaluation,
+several rows from one patent cannot be treated as fully independent experiments
+because they often share the same base polymer, preparation history,
+terminology, and testing convention. Holding out source families therefore
+matches the intended use of the extracted data.
 
-The third change was to make material classes explicit. The initial release
-could have reported one population of silicone formulations, but that would
-have hidden an important distinction for the collaborators. A filled solid
-elastomer and a cellular foam can both be described as silicone rubber while
-having different structures and different responses to load. The composite and
-foam labels are therefore included in the report as a first classification
+The third change was to use LLM-resolved ingredient roles to make material
+classes explicit. A filled solid elastomer and a cellular foam can both be
+described as silicone rubber while having different structures and responses
+to load. The composite and foam labels therefore provide a first classification
 layer, with the overlap shown rather than suppressed.
 
-These changes made the report more conservative but also more useful. The
-project now explains what result it can produce and why a larger or more
-detailed source record is needed before stronger chemistry claims can be made.
+These changes produced an automated process whose output can be traced,
+audited, corrected, and regenerated as the literature collection grows. The
+report now describes both the polymer data recovered by the LLM workflow and
+the evidence needed before stronger chemistry claims can be made.
 
 % ===========================================================================
 \section{Actual or anticipated problems and actions to resolve them}
