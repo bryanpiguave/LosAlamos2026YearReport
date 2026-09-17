@@ -55,12 +55,12 @@ Given a documented recipe (base polysiloxane, filler, crosslinker, catalyst
 or initiator, additives) and a test protocol, can compression set be
 predicted without running the test?
 
-The published record is large but almost entirely qualitative. The working
-corpus holds \nCorpusDocs{} documents, \nPropDocs{} of which yield at least
-one extracted property. Only \nCsDocs{} report any compression-set value at
-all, and once a value is required to sit next to a stated composition and a
-complete test protocol (temperature, time, deflection) the population shrinks
-to \nCsCondDocs{} documents. The clean release \release{} holds
+The published record is large but almost entirely qualitative. We began with
+\nCorpusDocs{} downloaded PDFs. Of these, \nPropDocs{} yield at least one
+extracted property. Only \nCsDocs{} report any compression-set value at all,
+and once a value is required to sit next to a stated composition and a
+complete test protocol (temperature, time, deflection), the population
+shrinks to \nCsCondDocs{} documents. The clean release \release{} holds
 \nRelRows{} measurements over \nRelForms{} formulations from \nRelDocs{}
 documents (\nRelPatents{} patents, \nRelJournals{} journal articles). Every
 value in it was read from a page image by a locally served vision-language
@@ -98,7 +98,7 @@ model can be estimated rather than assumed.
 2026-09-13) unless stated otherwise.}
 \begin{tabular}{@{}lr@{}}
 \toprule
-Documents in the working corpus & \nCorpusDocs \\
+Downloaded PDFs & \nCorpusDocs \\
 Documents with any compression-set value & \nCsDocs \\
 Documents in the clean release & \nRelDocs{} (\nRelPatents{} patents, \nRelJournals{} journal) \\
 Formulations released & \nRelForms \\
@@ -167,8 +167,8 @@ pages with a vision-language model instead.
 
 \subsection{The state of the published record}
 Figure~\ref{fig:problem} surveys the record from which the dataset is built.
-Panel (a) is a funnel over documents. The corpus holds \nCorpusDocs{}
-documents; \nPropDocs{} yield at least one extracted property of any kind;
+Panel (a) is a funnel over downloaded PDFs. The starting set contains
+\nCorpusDocs{} PDFs; \nPropDocs{} yield at least one extracted property of any kind;
 \nCsDocs{} report a compression-set value (\nCsRows{} raw rows);
 \nCsCompDocs{} attach such a value to a stated composition; \nCsCondDocs{}
 also state the full test protocol; and \nRelDocs{} survive the remaining
@@ -198,7 +198,7 @@ value are all present and all traceable to a page.
   \centering
   \includegraphics[width=\linewidth]{figures/problem_qualitative_record_vs_quantitative_compression_set_data.png}
   \caption{\textbf{A large qualitative record yields a small quantitative
-  dataset.} (a) Documents remaining at each stage from the working corpus to
+  dataset.} (a) Documents remaining at each stage from the downloaded PDFs to
   the clean release; row counts are given where the stage is defined on
   measurements. (b) Share of \nCsPopulation{} non-prophetic, in-range
   compression-set rows for which each field is stated in the measurement row
@@ -282,13 +282,11 @@ that pass are asked whether they report quantitative compression-set
 measurements. An audit mode reruns the second stage on a sample of
 first-stage rejections to measure the recall the cascade costs. No pattern
 matching enters either judgment; a keyword search is used only to select
-which passages of a long document are shown to the model. As of early
-September 2026 the rebuilt acquisition pipeline held 2{,}925 documents (314
-journal, 2{,}611 patent), of which 2{,}409 pass the silicone-matrix screen and
-165 (54 journal, 111 patent) also pass the compression-set screen. The
-extraction and release numbers in this report trace to the earlier corpus
-generation of \nCorpusDocs{} documents on which the working database was
-built; the two are reported separately and are not yet merged.
+which passages of a long document are shown to the model. We began with
+\nCorpusDocs{} downloaded PDFs: 314 journal articles and 2{,}611 patents.
+The silicone-matrix screen retains 2{,}409 documents. Of those, 165 (54
+journal articles and 111 patents) also report quantitative compression-set
+measurements.
 
 \subsection{Page-image extraction}
 Each PDF page is rendered to an image and passed to a vision-language model
@@ -895,8 +893,9 @@ includes. The script reads only committed artifacts. The release snapshot is
 \path{3_machine_learning_model/data/cs_v14/} (manifest commit
 \texttt{1b15dfa4}, database build 2026-09-13T19:18:58Z); the ladder metrics
 are \path{3_machine_learning_model/results/cs_v14/summary.csv}; the
-corpus funnel and the row-versus-document condition coverage are computed
-from the production DuckDB store of the same build. The audit sample, briefs,
+corpus-funnel stages after the downloaded-PDF starting count and the
+row-versus-document condition coverage are computed from the production
+DuckDB store of the same build. The audit sample, briefs,
 and both readers' verdicts are under
 \path{rtv_foam_spr/data/gold/table_fidelity_audit/cs_v14/} and are
 never read by the pipeline.

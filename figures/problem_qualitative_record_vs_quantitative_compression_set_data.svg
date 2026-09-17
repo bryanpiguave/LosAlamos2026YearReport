@@ -291,7 +291,7 @@ L 0 2
     <g id="ytick_1">
      <g id="line2d_33"/>
      <g id="text_6">
-      <text style="font-weight: 700; font-size: 18px; font-family: 'Helvetica', sans-serif; text-anchor: end" x="238.272187" y="126.106247" transform="rotate(-0 238.272187 126.106247)">documents in corpus</text>
+      <text style="font-weight: 700; font-size: 18px; font-family: 'Helvetica', sans-serif; text-anchor: end" x="238.272187" y="126.106247" transform="rotate(-0 238.272187 126.106247)">downloaded PDFs</text>
      </g>
     </g>
     <g id="ytick_2">
@@ -436,7 +436,7 @@ z
     </g>
    </g>
    <g id="text_12">
-    <text style="font-weight: 700; font-size: 17px; font-family: 'Helvetica', sans-serif; text-anchor: start; fill: #0b2e4f" x="551.451706" y="124.286911" transform="rotate(-0 551.451706 124.286911)">3,919 docs</text>
+    <text style="font-weight: 700; font-size: 17px; font-family: 'Helvetica', sans-serif; text-anchor: start; fill: #0b2e4f" x="551.451706" y="124.286911" transform="rotate(-0 551.451706 124.286911)">2,925 PDFs</text>
    </g>
    <g id="text_13">
     <text style="font-weight: 700; font-size: 17px; font-family: 'Helvetica', sans-serif; text-anchor: start; fill: #0b2e4f" x="516.553668" y="190.446168" transform="rotate(-0 516.553668 190.446168)">1,930 docs</text>
