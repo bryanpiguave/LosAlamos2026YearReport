@@ -32,12 +32,12 @@
 \newcommand{\degC}{\,\textdegree C}
 
 \title{\vspace{-1.5em}
-  {\large TECHNICAL REPORT}\\[0.6em]
-  {\LARGE\bfseries Source-Linked Compression-Set Data for Silicone Elastomers}\\[0.4em]}
+  {\large TECHNICAL PROGRESS REPORT}\\[0.6em]
+  {\LARGE\bfseries Source-Linked Compression-Set Data for Silicone Formulations}\\[0.4em]}
 \author{Bryan V.\ Piguave \and Brett M.\ Savoie\\[0.4em]
   \normalsize Department of Chemical and Biomolecular Engineering, University of Notre Dame\\
   \normalsize Notre Dame, IN 46556, USA\\[0.6em]}
-\date{September 2026}
+\date{September 17, 2026}
 
 \begin{document}
 \maketitle
@@ -45,15 +45,18 @@
 % ---------------------------------------------------------------------------
 \section*{Executive summary}
 % ---------------------------------------------------------------------------
-This report documents a pipeline that reads silicone-elastomer formulations
-and their compression-set measurements out of patents and journal articles,
-the frozen dataset it currently produces, and the predictive baseline that
-dataset supports. The work targets a practical question for seal design.
+This report summarizes the work completed to build a source-linked database of
+silicone formulations and compression-set measurements from patents and
+journal articles. It describes the extraction pipeline, the frozen dataset it
+currently produces, and the predictive baseline that dataset supports. The
+work targets a practical question for seal design.
 Given a documented recipe (base polysiloxane, filler, crosslinker, catalyst
 or initiator, additives) and a test protocol, can compression set be
 predicted without running the test?
 
-The published record is large but almost entirely qualitative. We began with
+The central result is a document funnel: the published record is large but
+almost entirely qualitative, and the usable quantitative record becomes
+smaller at every screening step. We began with
 \nCorpusDocs{} downloaded PDFs. Of these, \nPropDocs{} yield at least one
 extracted property. Only \nCsDocs{} report any compression-set value at all,
 and once a value is required to sit next to a stated composition and a
@@ -68,6 +71,17 @@ rather than patched in place. A two-reader audit of a stratified sample of relea
 against their source pages found the released compression-set value correct
 in 96.8\% of checkable cases (Wilson 95\% interval 94.7--98.1\%), with
 temperature and deflection correct in every checked case.
+
+The release also separates the formulation classes that matter for interpreting
+the results. We call a formulation a \emph{composite} when its reviewed role
+labels include a dispersed filler (reinforcing, functional, extending, or
+lightweight filler), and a \emph{foam} when its labels include a blowing agent.
+These labels can overlap: \nCompositeForms{} formulations are composites and
+\nFoamForms{} are foams, including \nCompositeFoamForms{} formulations that
+are both. Thus the release contains \nCompositeOnlyForms{} composite-only
+formulations, \nFoamOnlyForms{} foam-only formulations, and \nNeitherForms{}
+formulations in neither class. This classification is used descriptively and
+does not replace the source's own product terminology.
 
 On this release, test conditions alone (deflection, time, temperature) give a
 leave-one-family-out $R^2$ of \nLofoConditions{} with a mean absolute error
@@ -101,6 +115,8 @@ Documents with any compression-set value & \nCsDocs \\
 Documents in the clean release & \nRelDocs{} (\nRelPatents{} patents, \nRelJournals{} journal) \\
 Formulations released & \nRelForms \\
 Compression-set measurements released & \nRelRows \\
+Composite formulations / documents & \nCompositeForms{} / \nCompositeDocs \\
+Foam formulations / documents & \nFoamForms{} / \nFoamDocs \\
 Ingredient rows released / distinct ingredient strings & \nRelIngredientRows{} / \nRelDistinctIngredients \\
 Median compression set (interquartile range) & \nRelMedian\% (\nRelIQRlo--\nRelIQRhi\%) \\
 Distinct test protocols (temperature, time, deflection) & \nProtocolDistinct \\
@@ -112,12 +128,8 @@ Smallest provable gain at 67 documents & \nSpgMin--\nSpgMax{} $R^2$ \\
 \end{tabular}
 \end{table}
 
-\clearpage
-\tableofcontents
-\clearpage
-
 % ===========================================================================
-\section{Purpose and scope}
+\section{Goals and scope}
 % ===========================================================================
 
 \subsection{Why compression set}
@@ -165,7 +177,8 @@ pages with a vision-language model instead.
 
 \subsection{The state of the published record}
 Figure~\ref{fig:problem} surveys the record from which the dataset is built.
-Panel (a) is a funnel over downloaded PDFs. The starting set contains
+Panel (a) is the main document funnel and should be read from top to bottom:
+the count decreases at each requirement. The starting set contains
 \nCorpusDocs{} PDFs; \nPropDocs{} yield at least one extracted property of any kind;
 \nCsDocs{} report a compression-set value (\nCsRows{} raw rows);
 \nCsCompDocs{} attach such a value to a stated composition; \nCsCondDocs{}
@@ -185,24 +198,26 @@ methods paragraph pages from the results table, and sometimes only as the
 name of a standard. Reading the whole document and resolving those statements
 back onto each row raises deflection coverage to \nResDeflectionPct\%,
 temperature to \nResTempPct\%, and full specification to \nResAllPct\%.
-Panel (c) shows the naming problem. Within the released formulations alone,
-the role \nSpellTopRole{} appears under \nSpellTopCount{} distinct printed
-strings, ranging from IUPAC-style names through trade codes such as
-``KE-1950-50'' to anonymous labels such as ``component (A)''. The pipeline's
-job is to turn that record into rows in which chemistry, amount, protocol, and
-value are all present and all traceable to a page.
+Panel (c) reports the formulation classes. A composite is counted when a
+formulation contains a reviewed dispersed-filler role; a foam is counted when
+it contains a reviewed blowing-agent role. The classes overlap, so the
+composite-plus-foam bar is not added a second time to obtain the total of
+\nRelForms{} formulations. The pipeline's job is to turn the surviving record
+into rows in which chemistry, amount, protocol, and value are all present and
+all traceable to a page.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figures/problem_qualitative_record_vs_quantitative_compression_set_data.png}
-  \caption{\textbf{A large qualitative record yields a small quantitative
-  dataset.} (a) Documents remaining at each stage from the downloaded PDFs to
-  the clean release; row counts are given where the stage is defined on
+  \caption{\textbf{The document funnel and formulation classes.} (a) Documents
+  remaining at each stage from the downloaded PDFs to the clean release; the
+  count decreases as composition, protocol, and release-quality requirements
+  are imposed, and row counts are given where the stage is defined on
   measurements. (b) Share of \nCsPopulation{} non-prophetic, in-range
   compression-set rows for which each field is stated in the measurement row
   itself (grey) and after document-level resolution of the methods text
-  (blue). (c) Distinct printed ingredient strings per role among the released
-  formulations, with roles from the reviewed taxonomy.}
+  (blue). (c) Formulations classified as composite, foam, both, or neither.
+  Composite means a dispersed-filler role; foam means a blowing-agent role.}
   \label{fig:problem}
 \end{figure}
 
@@ -218,7 +233,7 @@ dictionary of the release tables and the commands that regenerate every
 number and figure in this report.
 
 % ===========================================================================
-\section{The pipeline}
+\section{What was accomplished: the extraction pipeline}
 \label{sec:pipeline}
 % ===========================================================================
 Figure~\ref{fig:pipeline} lays out the pipeline in three lanes. The first
@@ -428,7 +443,7 @@ matrix screen; it is the canonical example of why the screen reads the
 document rather than the abstract.
 
 % ===========================================================================
-\section{Dataset release \release}
+\section{Significant result: dataset release \release}
 \label{sec:release}
 % ===========================================================================
 
@@ -469,6 +484,39 @@ names another medium), specimen shape is stated for
 \nStatedSpecimenShape\%, specimen thickness for \nStatedSpecimenThickness\%,
 and a test standard for \nStatedTestStandard\%. Those gaps are not filled;
 they are the record.
+
+\subsection{Which formulations are composites and which are foams?}
+The formulation classes are reported explicitly because they change the
+interpretation of both chemistry and compression-set comparisons. The labels
+below are derived from the reviewed ingredient-role taxonomy, not from a
+keyword applied to the document title. A composite requires at least one
+dispersed filler role: reinforcing, functional, extending, or lightweight
+filler. A foam requires a blowing-agent role. A formulation can satisfy both
+conditions, as it does when a filled silicone is expanded into a cellular
+material.
+
+\begin{table}[h]
+\centering\small
+\caption{Operational material classes in release \release. The composite and
+foam labels can overlap; the four rows below partition the formulations.}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Formulation class & Formulations & Compression-set measurements \\
+\midrule
+Composite only & \nCompositeOnlyForms{} & \nCompositeOnlyRows{} \\
+Composite and foam & \nCompositeFoamForms{} & \nCompositeFoamRows{} \\
+Foam only & \nFoamOnlyForms{} & \nFoamOnlyRows{} \\
+Neither composite nor foam & \nNeitherForms{} & \nNeitherRows{} \\
+\midrule
+Total & \nRelForms{} & \nRelRows{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In aggregate, \nCompositeForms{} formulations from \nCompositeDocs{} documents
+are composites and \nFoamForms{} formulations from \nFoamDocs{} documents are
+foams. The overlap is substantive rather than an accounting error: the
+\nCompositeFoamForms{} formulations in both classes contribute to both totals.
 
 \begin{figure}[t]
   \centering
@@ -525,7 +573,7 @@ belong to the release they were computed on and are not comparable across
 releases without that qualification.
 
 % ===========================================================================
-\section{A predictive baseline}
+\section{Significant result: a predictive baseline}
 \label{sec:model}
 % ===========================================================================
 

@@ -144,13 +144,13 @@ def fig_problem():
     cond = " and cond_aging_temp_c is not null and cond_deflection_pct is not null and cond_aging_time_h is not null"
     n_comp_docs, n_comp_rows = q(f"select count(distinct p.ref_id), count(*) {base}{comp}")
     n_cond_docs, n_cond_rows = q(f"select count(distinct p.ref_id), count(*) {base}{comp}{cond}")
-    _, _, _, _, summary = load_release()
+    cs_release, forms_release, _, _, summary = load_release()
     n_rel_docs, n_rel_rows = summary["documents"], summary["measurements"]
 
     # Panel (b): the same compression-set rows read two ways -- what the
     # measurement row itself states, and what the database carries after
     # document-level resolution of the methods text.
-    cs = con.execute(f"""
+    cs_db = con.execute(f"""
         select property_verbatim, measurement_conditions,
                (value_canonical is not null or value_verbatim is not null) as has_value,
                exists(select 1 from ingredients i where i.formulation_id=p.formulation_id) as has_ing,
@@ -159,10 +159,10 @@ def fig_problem():
                cond_aging_time_h is not null as db_time
         {base}""").fetchall()
     con.close()
-    n = len(cs)
+    n = len(cs_db)
     row = dict(value=0, ingredients=0, temp=0, time=0, deflection=0, all=0)
     res = dict(row)
-    for pv, mc, hv, hi, ddb, tdb, tim in cs:
+    for pv, mc, hv, hi, ddb, tdb, tim in cs_db:
         c = parse_conditions(pv or "", mc or "")
         d = c["deflection_pct"] is not None
         t = (c["test_temp_C"] is not None) or (c["aging_temp_C"] is not None)
@@ -176,15 +176,31 @@ def fig_problem():
     row_pct = {k: 100 * v / n for k, v in row.items()}
     res_pct = {k: 100 * v / n for k, v in res.items()}
 
-    # Panel (c): how many distinct printed strings the release needed to read
-    # per ingredient role. Roles from the reviewed taxonomy, not regex.
-    forms = pd.read_csv(RELEASE / "formulations.csv")
+    # Panel (c): formulation classes derived from the reviewed role taxonomy.
+    forms = forms_release
+    filler_roles = {"reinforcing_filler", "functional_filler", "extending_filler",
+                    "lightweight_filler", "other_filler"}
+    roles_by_form = forms.groupby("formulation_id")["role"].agg(lambda s: set(s))
+    is_composite = roles_by_form.map(lambda s: bool(s & filler_roles))
+    is_foam = roles_by_form.map(lambda s: "blowing_agent" in s)
+    class_order = ["composite only", "composite + foam", "foam only", "neither"]
+    class_by_form = pd.Series("neither", index=roles_by_form.index)
+    class_by_form[is_composite & ~is_foam] = "composite only"
+    class_by_form[is_composite & is_foam] = "composite + foam"
+    class_by_form[~is_composite & is_foam] = "foam only"
+    class_counts = class_by_form.value_counts().reindex(class_order).fillna(0).astype(int)
+    cs_class = cs_release["formulation_id"].map(class_by_form)
+    class_rows = cs_class.value_counts().reindex(class_order).fillna(0).astype(int)
+    composite_docs = forms.loc[forms.formulation_id.isin(roles_by_form[is_composite].index), "doc_id"].nunique()
+    foam_docs = forms.loc[forms.formulation_id.isin(roles_by_form[is_foam].index), "doc_id"].nunique()
     comp_src = pd.read_csv(SNAP / "components.csv", usecols=["formulation_id", "name_verbatim", "category_labels"])
     comp_src["role"] = comp_src["category_labels"].fillna("").str.split("|").str[0]
     spell = comp_src.groupby("role").name_verbatim.nunique().sort_values(ascending=False)
     spell = spell[[r for r in spell.index if r and r != "unknown_role"]].head(7)
 
-    fig, axes = plt.subplots(1, 3, figsize=(22, 7.2), layout="constrained", gridspec_kw=dict(width_ratios=[1.15, 1.0, 1.05]))
+    fig = plt.figure(figsize=(22, 10.2), layout="constrained")
+    gs = fig.add_gridspec(2, 2, height_ratios=[1.12, 1.0], width_ratios=[1.0, 1.0])
+    axes = [fig.add_subplot(gs[0, :]), fig.add_subplot(gs[1, 0]), fig.add_subplot(gs[1, 1])]
 
     # (a) funnel: documents at each stage of the compression-set record
     ax = axes[0]
@@ -211,7 +227,7 @@ def fig_problem():
     style_axes(ax, xlabel="documents (log scale)", label_fontsize=FS_LABEL, tick_fontsize=FS_TICK)
     clean(ax, "x")
     bold_ticks(ax)
-    panel(ax, "a", x=-0.62, y=1.2)
+    panel(ax, "a", x=-0.04, y=1.03)
 
     # (b) what the measurement row states vs what document-level reading recovers
     ax = axes[1]
@@ -235,21 +251,24 @@ def fig_problem():
               prop=dict(weight="bold", size=MIN_FONTSIZE), handletextpad=0.4)
     clean(ax, "x")
     bold_ticks(ax)
-    panel(ax, "b", x=-0.42, y=1.2)
+    panel(ax, "b", x=-0.14, y=1.04)
 
-    # (c) how many printed names one ingredient role hides behind
+    # (c) formulation classes: composites and foams
     ax = axes[2]
-    y = np.arange(len(spell))[::-1]
-    lollipop(ax, y, spell.values, TEAL, horizontal=True, stick_lw=11, ms=15)
+    y = np.arange(len(class_order))[::-1]
+    class_colors = [BLUE, PURPLE, ORANGE, GREY]
+    for yi, name, v, c in zip(y, class_order, class_counts, class_colors):
+        lollipop(ax, [yi], [v], c, horizontal=True, stick_lw=13, ms=16)
+        ax.text(v + class_counts.max() * 0.025, yi,
+                f"{v:,} forms / {class_rows[name]:,} measurements",
+                va="center", fontsize=FS_ANNOT, fontweight="bold", color=NAVY)
     ax.set_yticks(y)
-    ax.set_yticklabels([r.replace("_", " ") for r in spell.index])
-    for yi, v in zip(y, spell.values):
-        ax.text(v + spell.max() * 0.02, yi, f"{v:,}", va="center", fontsize=FS_ANNOT, fontweight="bold", color=NAVY)
-    ax.set_xlim(0, spell.max() * 1.22)
-    style_axes(ax, xlabel="distinct printed strings", label_fontsize=FS_LABEL, tick_fontsize=FS_TICK)
+    ax.set_yticklabels(class_order)
+    ax.set_xlim(0, class_counts.max() * 1.42)
+    style_axes(ax, xlabel="formulations (n = 605)", label_fontsize=FS_LABEL, tick_fontsize=FS_TICK)
     clean(ax, "x")
     bold_ticks(ax)
-    panel(ax, "c", x=-0.55, y=1.2)
+    panel(ax, "c", x=-0.14, y=1.04)
 
     save(fig, "problem_qualitative_record_vs_quantitative_compression_set_data")
 
@@ -258,6 +277,21 @@ def fig_problem():
     num("CsCompDocs", n_comp_docs); num("CsCompRows", n_comp_rows)
     num("CsCondDocs", n_cond_docs); num("CsCondRows", n_cond_rows)
     num("CsPopulation", n)
+    num("CompositeForms", int(is_composite.sum()))
+    num("FoamForms", int(is_foam.sum()))
+    num("CompositeDocs", int(composite_docs))
+    num("FoamDocs", int(foam_docs))
+    num("CompositeRows", int(cs_release["formulation_id"].map(is_composite).fillna(False).sum()))
+    num("FoamRows", int(cs_release["formulation_id"].map(is_foam).fillna(False).sum()))
+    class_macro_keys = {
+        "composite only": ("CompositeOnlyForms", "CompositeOnlyRows"),
+        "composite + foam": ("CompositeFoamForms", "CompositeFoamRows"),
+        "foam only": ("FoamOnlyForms", "FoamOnlyRows"),
+        "neither": ("NeitherForms", "NeitherRows"),
+    }
+    for label, (form_key, row_key) in class_macro_keys.items():
+        num(form_key, int(class_counts[label]))
+        num(row_key, int(class_rows[label]))
     for k in keys:
         num(f"Row{k.capitalize()}Pct", round(row_pct[k]), "{}")
         num(f"Res{k.capitalize()}Pct", round(res_pct[k]), "{}")
@@ -715,6 +749,10 @@ if __name__ == "__main__":
                 if line.startswith("\\newcommand{\\n"):
                     k = line[len("\\newcommand{\\n"):line.index("}")]
                     existing[k] = line[line.index("}{") + 2:-1]
+        # Partial runs should not preserve aliases left by an older version
+        # of a figure's macro names.
+        for stale in ("CompositefoamRows", "CompositeonlyRows", "FoamonlyRows"):
+            existing.pop(stale, None)
         existing.update(NUMBERS)
         NUMBERS.clear(); NUMBERS.update(existing)
         write_numbers()

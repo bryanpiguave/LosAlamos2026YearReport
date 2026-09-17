@@ -8,7 +8,7 @@ predictive baseline on it, and the companion Noll table benchmark.
 
 | Path | What |
 |---|---|
-| `main.tex` | The report (executive summary, 8 sections, 2 appendices). `article`, natbib + bibtex, Helvetica text. No `biblatex`, `siunitx`, `authblk`, or `tcolorbox`, so it compiles on the CRC TeX Live as well as on Overleaf. |
+| `main.tex` | The progress-report-style report (executive summary, goals, accomplishments, significant results, next steps, and appendices). `article`, natbib + bibtex, Helvetica text. No `biblatex`, `siunitx`, `authblk`, or `tcolorbox`, so it compiles on the CRC TeX Live as well as on Overleaf. |
 | `references.bib` | Bibliography (shared with `rtv_foam_spr/research_paper/`). |
 | `make_figures.py` | Regenerates the five figures **and** `generated/numbers.tex` from committed artifacts. |
 | `generated/numbers.tex` | One `\newcommand` per number the prose quotes (`\nRelRows`, `\nLofoConditions`, …). Generated; never edit. |
@@ -17,7 +17,7 @@ predictive baseline on it, and the companion Noll table benchmark.
 
 ## Figures
 
-1. `problem_qualitative_record_vs_quantitative_compression_set_data` — corpus funnel (documents → clean release), row-stated vs document-resolved condition coverage, distinct printed strings per ingredient role.
+1. `problem_qualitative_record_vs_quantitative_compression_set_data` — prominent corpus funnel (documents → clean release), row-stated vs document-resolved condition coverage, and composite/foam formulation classes.
 2. `pipeline_from_source_discovery_to_grouped_evaluation` — three-lane matplotlib diagram (acquisition / extraction and resolution / release and evaluation).
 3. `release_cs_v14_target_sources_amount_basis_roles_protocols_and_field_coverage` — six-panel statistics of the frozen release.
 4. `ladder_conditions_floor_vs_chemistry_arms_grouped_random_and_paired_gain` — absolute R² under three regimes plus paired gain with interval and smallest provable gain.
@@ -28,6 +28,11 @@ predictive baseline on it, and the companion Noll table benchmark.
 - `3_machine_learning_model/data/cs_v14/` (snapshot: `release/*.csv`, `measurements.csv`, `components.csv`, `formulation_blocks.csv`, `summary.json`, `manifest.json`)
 - `3_machine_learning_model/results/cs_v14/summary.csv` (the ladder)
 - `rtv_foam_spr/data/rtv_foam.duckdb` (corpus funnel and condition coverage; same build as the release)
+
+The report's operational formulation labels are derived from `formulations.csv`:
+composite means at least one reinforcing, functional, extending, or lightweight
+filler role; foam means a blowing-agent role. The labels overlap, so filled
+foams are counted in both classes.
 
 ## Build
 
