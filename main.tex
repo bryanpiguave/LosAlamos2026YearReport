@@ -51,7 +51,8 @@ journal articles. The practical question is whether a documented formulation
 and its test conditions can support useful guidance for seal design without
 requiring a new compression-set experiment for every candidate.
 
-The main result is a funnel. We began with \nCorpusDocs{} downloaded documents.
+The central result is the funnel shown throughout this report: the search began
+with \nCorpusDocs{} downloaded documents.
 \nPropDocs{} contained at least one extracted property, \nCsDocs{} reported a
 compression-set value, and only \nCsCondDocs{} provided a value together with
 a composition and the three essential test conditions: temperature, time, and
@@ -100,7 +101,7 @@ The first goal is therefore to gather measurements together with the
 conditions that make them interpretable. The second is to preserve the
 chemistry of the formulation: base polymer, crosslinker, catalyst or
 initiator, fillers, additives, and any blowing agent. Silicone elastomers are
-not single-molecule materials. Their behavior depends on the network created
+formulated network materials, and their behavior depends on the network created
 by the cure chemistry, the interaction with fillers, and the processing and
 aging history \citep{mazurek2019silicone,yue2013tensile,patel2004stress}.
 
@@ -113,8 +114,9 @@ therefore asks two separate questions: what information can be recovered and
 checked, and how much predictive value does the recovered chemistry add beyond
 the test conditions themselves?
 
-These goals are deliberately connected. A prediction made from a numerical
-value that cannot be traced to a source is not a useful engineering result. A
+These goals are deliberately connected because a prediction made from a
+numerical value that cannot be traced to a source is not a useful engineering
+result. A
 chemistry label that does not distinguish a filled elastomer from an expanded
 foam can make a model appear more general than it is. Conversely, a carefully
 curated but very small record may be unable to demonstrate an effect that is
@@ -145,12 +147,13 @@ against the pages from which they came. The second is an account of the limits
 of that record. It identifies the points at which a document stops being
 quantitative, the material classes that are present in the surviving
 formulations, and the kinds of uncertainty that remain after careful reading.
-Both outputs are necessary for collaboration. The record supports analysis,
-while the limitations identify where expert judgment or new experiments are
-still needed.
+Together, these two outputs support collaboration: the record supports
+analysis, while the limitations identify where expert judgment or new
+experiments are still needed.
 
-The result is summarized in Figure~\ref{fig:problem}. The top panel makes the
-funnel explicit: each additional requirement removes documents that do not
+Figure~\ref{fig:problem} summarizes how the record is reduced to a defensible
+comparison. Its top panel makes the funnel explicit: each additional
+requirement removes documents that do not
 provide enough information for a defensible comparison. The lower-right panel
 records the material classes in the final release. These classes overlap by
 design, because a filled silicone foam is both a composite and a foam.
@@ -188,7 +191,7 @@ been required in the title or abstract.
 
 The screening decision also had to distinguish silicone as a matrix from
 silicone as an additive, modifier, crosslinker, or minor component in another
-polymer. That distinction is scientifically important. A polyurethane
+polymer. This distinction matters scientifically because a polyurethane
 containing a silicone additive may be a valuable material, but it does not
 answer the same question as a silicone elastomer whose network carries the
 load. The current record focuses on the latter so that the measured property
@@ -311,22 +314,23 @@ The first reduction is broad: many documents mention a material or a property
 without presenting a numerical measurement that can be used. The second
 reduction is more consequential for formulation science. A compression-set
 number without a recipe cannot be connected to a base polymer, filler, or cure
-system. The third reduction concerns the protocol. Even a complete recipe and
-a measured value remain difficult to compare when the temperature, time, or
+system. The third reduction concerns the protocol: even a complete recipe and a
+measured value remain difficult to compare when the temperature, time, or
 deflection is absent or ambiguous.
 
 The final reduction is a judgment about whether the surviving record is
 complete enough to support a scientific claim. It removes cases that are
 prophetic rather than measured, outside the physical range of the property,
 duplicated across source families, or too incomplete to identify the material
-being tested. This last step is intentionally conservative. A smaller set of
-traceable results is more useful for collaboration than a larger set whose
-composition or test conditions cannot be defended.
+being tested. This last step is intentionally conservative because a smaller
+set of traceable results is more useful for collaboration than a larger set
+whose composition or test conditions cannot be defended.
 
 \subsection{The release separates composites and foams}
 The material classification is based on the ingredient roles supported by the
-source. Composite means at least one reinforcing, functional, extending, or
-lightweight filler. Foam means a blowing agent. The four categories below
+source. In this report, a composite contains at least one reinforcing,
+functional, extending, or lightweight filler, whereas the foam label denotes a
+formulation with a documented blowing-agent role. The four categories below
 partition the 605 released formulations, while the aggregate composite and
 foam populations overlap.
 
@@ -386,11 +390,12 @@ The release is consequently best understood as a map of the evidence rather
 than as a uniform catalog. Some source families provide many formulations and
 many aging conditions; others provide one or two comparative values. Some
 sources name a commercial material in detail, while others provide only a
-generic description. These differences are not merely cosmetic. They affect
-which chemistry comparisons are possible and how much confidence can be
-placed in a trend.
+generic description. These differences affect which chemistry comparisons are
+possible and how much confidence can be placed in a trend; they are therefore
+more than cosmetic variations in presentation.
 
-Figure~\ref{fig:dataset} summarizes this variation. The measurements are
+Figure~\ref{fig:dataset} summarizes this variation across source documents and
+testing conditions. The measurements are
 unevenly distributed across source documents, and the test conditions cluster
 around common industrial protocols while extending to other temperatures and
 times. This unevenness is why the report emphasizes source families and
@@ -422,8 +427,9 @@ conventions are not interchangeable without assumptions. Retaining the
 original basis preserves the source's meaning and makes it possible to select
 only the comparable subset for a particular analysis.
 
-The test protocol is similarly heterogeneous. Common industrial holds create
-useful concentrations of data, but they can also make the literature appear
+The test protocol is similarly heterogeneous across documents. Common
+industrial holds create useful concentrations of data, but they can also make
+the literature appear
 more consistent than it is. Room-temperature measurements, long-duration
 aging, post-cured specimens, oil exposure, and different specimen geometries
 may represent different use cases rather than noisy versions of one test. The
@@ -457,8 +463,8 @@ to fit the prediction. Conditions alone reached a leave-one-family-out
 $R^2$ of \nLofoConditions{} with a mean absolute error of
 \nLofoMaeConditions{} percentage points.
 
-This baseline has a practical interpretation. The test protocol is not a
-minor annotation attached after the chemistry; it is one of the strongest
+This baseline has a practical interpretation because the test protocol is not
+a minor annotation attached after the chemistry; it is one of the strongest
 determinants of the reported number. A model that knows the aging temperature,
 time, and deflection has information about the severity of the test even when
 the source gives only a limited formulation description. That makes the
@@ -570,9 +576,9 @@ field. In other cases the right outcome is to leave the value out until the
 source can be resolved. This distinction keeps uncertainty visible instead of
 turning it into false precision.
 
-These lessons also affect future acquisition. New documents should be judged
-by the quality and diversity of the formulations they add, not only by the
-number of compression-set rows. A source with one carefully described
+These lessons should also guide future acquisition, because new documents
+should be judged by the quality and diversity of the formulations they add, not
+only by the number of compression-set rows. A source with one carefully described
 composite or foam may be more valuable than a source with dozens of repeated
 examples whose chemistry and protocol cannot be separated.
 
@@ -802,7 +808,8 @@ history of the source record.
 % ===========================================================================
 \section{What do you plan to do next to accomplish the goals?}
 % ===========================================================================
-The next stage has three priorities. First, confirmed errors from the audit
+The next stage has three priorities for expanding and testing the release.
+First, confirmed errors from the audit
 will be corrected and additional source families will be added through the
 same source-linked process. Second, the composite and foam labels will be
 reviewed alongside cure system and base-polymer information so that the
@@ -842,7 +849,7 @@ each material class. Reporting the changes this way will make progress visible
 even when the predictive score does not change immediately.
 
 % ===========================================================================
-section{Overall assessment}
+\section{Overall assessment}
 % ===========================================================================
 The project has reached a useful intermediate point. The literature search has
 produced a broad starting population, while the successive screening steps have
