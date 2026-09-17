@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -78,6 +78,14 @@ chemistry is unimportant. It means that the present record is still too small,
 too unevenly described, and too concentrated in a limited number of source
 families to establish a transferable chemistry effect.
 
+Taken together, these results define the present stage of the project. The
+work has moved beyond asking whether the literature contains silicone data at
+all. It now shows how much of that data can be made comparable, what types of
+formulations are represented, which parts of the test protocol are usually
+missing, and what level of prediction can be supported without overstating the
+evidence. The next phase can therefore be organized around specific gaps
+rather than around a general search for more papers.
+
 % ===========================================================================
 \section{What are the major goals of the project?}
 % ===========================================================================
@@ -105,6 +113,21 @@ therefore asks two separate questions: what information can be recovered and
 checked, and how much predictive value does the recovered chemistry add beyond
 the test conditions themselves?
 
+These goals are deliberately connected. A prediction made from a numerical
+value that cannot be traced to a source is not a useful engineering result. A
+chemistry label that does not distinguish a filled elastomer from an expanded
+foam can make a model appear more general than it is. Conversely, a carefully
+curated but very small record may be unable to demonstrate an effect that is
+chemically real. The project treats source quality, material classification,
+and prediction as parts of the same research problem.
+
+The intended outcome is not a universal model for every silicone product. It
+is a dependable foundation for deciding which comparisons are meaningful and
+which experiments or source acquisitions would most improve the evidence. In
+that sense, a clear negative result about the present corpus is useful: it
+prevents a high apparent score from being mistaken for reliable transfer to a
+new material family.
+
 % ===========================================================================
 \section{What was accomplished under these goals?}
 % ===========================================================================
@@ -115,6 +138,16 @@ compression-set results, and read in the context of the surrounding
 formulation and testing descriptions. Duplicate source families were treated
 as one scientific source so that repeated publication of the same work did
 not create artificial evidence.
+
+The completed work has two complementary outputs. The first is the research
+record itself: a set of formulations and measurements that can be inspected
+against the pages from which they came. The second is an account of the limits
+of that record. It identifies the points at which a document stops being
+quantitative, the material classes that are present in the surviving
+formulations, and the kinds of uncertainty that remain after careful reading.
+Both outputs are necessary for collaboration. The record supports analysis,
+while the limitations identify where expert judgment or new experiments are
+still needed.
 
 The result is summarized in Figure~\ref{fig:problem}. The top panel makes the
 funnel explicit: each additional requirement removes documents that do not
@@ -144,12 +177,51 @@ chemical names. Trade names, component labels, filler descriptions, cure
 systems, and amount conventions were retained when they were part of the
 source's description.
 
+\subsubsection{Source discovery and screening}
+The source search was designed to favor recall at the beginning and judgment
+later. Silicone terminology varies widely across patents and articles, and a
+document may report compression set only in a long example section. The search
+therefore gathered documents using broad material and application language
+before asking whether a document actually contained the target property. This
+approach retained documents that would have been lost if the property name had
+been required in the title or abstract.
+
+The screening decision also had to distinguish silicone as a matrix from
+silicone as an additive, modifier, crosslinker, or minor component in another
+polymer. That distinction is scientifically important. A polyurethane
+containing a silicone additive may be a valuable material, but it does not
+answer the same question as a silicone elastomer whose network carries the
+load. The current record focuses on the latter so that the measured property
+has a consistent material context.
+
+\subsubsection{Formulations as complete recipes}
+The second activity was to read each formulation as a complete recipe. A
+source may identify the base polymer in one paragraph, describe a filler in a
+table, and identify the cure system in a separate preparation step. Those
+pieces cannot be treated as independent observations. They describe one
+material and must remain together if the result is to be interpreted.
+
+The same principle applies to anonymous labels. ``Component A'' is not a
+chemical identity by itself, but a document may define Component A as a
+vinyl-terminated polysiloxane with a stated viscosity and Component B as a
+hydride-containing crosslinker. The useful information is the document's
+definition, not the label. Trade names and generic descriptions were retained
+when they carried information about the formulation, and uncertain identities
+were kept visibly uncertain rather than replaced with a convenient guess.
+
 Third, test conditions were connected to the measurements to which they
 belong. Temperature, time, deflection, medium, specimen geometry, and stated
 test standard were kept separate because each can change how a compression-set
 value should be interpreted. When a source stated conditions in a methods
 paragraph rather than beside the result, the conditions were connected back to
 the relevant measurements only when the source supported that connection.
+
+This step is especially important for aging studies. A source may describe a
+pre-aging exposure, a cure schedule, and a compression-set hold in the same
+experimental section. These are related events but not interchangeable fields.
+The record keeps them distinct so that a future user can ask whether two
+measurements used the same aging history rather than assuming that every
+temperature mentioned in a document was the test temperature.
 
 Fourth, the resulting records were checked against the source pages. A
 stratified audit found the released compression-set value correct in 96.8\% of
@@ -158,22 +230,62 @@ deflection were correct in every checked case. The audit also identified
 specific table-reading failures and source-family duplicates that would have
 been difficult to detect from numerical consistency alone.
 
+Verification was treated as part of the scientific result rather than as a
+final formatting step. When a value disagreed with a source page, the question
+was not only whether the number looked plausible. Review asked whether the
+formulation row, the specimen, and the stated test conditions were aligned.
+This distinction matters because a shifted table can produce a chemically
+reasonable formulation with the wrong amount, or a reasonable value with the
+wrong protocol. The audit therefore examined the relationship among fields,
+not just each field in isolation.
+
 \subsection{Specific Objectives}
 \textbf{Objective 1 -- Build a quantitative source record.} The project
 converted a dispersed set of patents and articles into a collection in which
 each measurement remains connected to its source document, formulation, and
 test description.
 
+This objective is important for more than citation. Source linkage allows a
+future reader to check whether a number was reported for a neat elastomer, a
+filled material, a foam, or a multi-part system. It also allows a correction
+to remain local. If a source later clarifies a cure condition or a component
+identity, the affected result can be revisited without silently changing
+unrelated measurements.
+
 \textbf{Objective 2 -- Distinguish material classes.} The project now reports
 which released formulations contain dispersed fillers and which contain
 blowing agents. This makes the composite and foam populations visible instead
 of combining them into one undifferentiated silicone category.
+
+This objective responds directly to the intended use of the record. A filler
+can change modulus, heat transfer, interfacial adhesion, and recovery, while a
+blowing agent changes the internal structure and the way a specimen carries
+load. Both effects can appear in a compression-set result, but they should not
+be interpreted as the same kind of chemistry. Reporting the overlap makes the
+classification useful without pretending that the categories are exclusive.
 
 \textbf{Objective 3 -- Establish a defensible predictive baseline.} The
 project compared condition-based prediction with several broad descriptions
 of chemistry while keeping source families separate during evaluation. The
 purpose was to identify what the current evidence supports, not to maximize a
 single score by mixing related examples between training and testing.
+
+The baseline provides a reference point for future work. If a new source
+collection or a new chemical description is added later, its value can be
+judged against a stable condition-based comparison. This is more informative
+than reporting a single best score because it shows whether a proposed
+improvement comes from chemistry or from the model recognizing the source
+document in which the measurement was originally reported.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/pipeline_from_source_discovery_to_grouped_evaluation.png}
+  \caption{\textbf{High-level progression of the work.} The project moves from
+  source discovery, through formulation and test-condition reading, to source
+  checking, material classification, and evaluation. Each stage preserves the
+  connection between a reported value and the document in which it appeared.}
+  \label{fig:pipeline}
+\end{figure}
 
 % ===========================================================================
 \section{Significant Results}
@@ -194,6 +306,22 @@ The limiting resource is the number of source families that report a complete
 recipe, a measured value, and enough test information for comparison. The
 funnel shows exactly where additional reading and curation can increase the
 usable population.
+
+The first reduction is broad: many documents mention a material or a property
+without presenting a numerical measurement that can be used. The second
+reduction is more consequential for formulation science. A compression-set
+number without a recipe cannot be connected to a base polymer, filler, or cure
+system. The third reduction concerns the protocol. Even a complete recipe and
+a measured value remain difficult to compare when the temperature, time, or
+deflection is absent or ambiguous.
+
+The final reduction is a judgment about whether the surviving record is
+complete enough to support a scientific claim. It removes cases that are
+prophetic rather than measured, outside the physical range of the property,
+duplicated across source families, or too incomplete to identify the material
+being tested. This last step is intentionally conservative. A smaller set of
+traceable results is more useful for collaboration than a larger set whose
+composition or test conditions cannot be defended.
 
 \subsection{The release separates composites and foams}
 The material classification is based on the ingredient roles supported by the
@@ -228,6 +356,23 @@ This distinction should be carried into future comparisons because foam
 structure, filler content, and cure conditions can affect compression set in
 different ways.
 
+The classification is deliberately based on what the formulation contains,
+not on an attempt to infer every product name used by the source. A document
+may call a material a sponge, cellular rubber, or lightweight elastomer while
+the formulation record uses a different vocabulary. The blowing-agent role is
+the most consistent evidence available across sources, and the filler roles
+provide a similarly consistent basis for the composite label. Sources that do
+not support either label remain in the release as neither rather than being
+forced into one of the two populations.
+
+At the document level, composites occur in \nCompositeDocs{} source documents
+and foams in \nFoamDocs{} documents. The overlap in formulations is useful for
+future analysis because it creates a natural question: does the compression
+set of a filled foam follow the behavior of filled solid elastomers, the
+behavior of foams, or a separate regime? The current report identifies the
+population needed to ask that question without claiming that it has already
+been answered.
+
 \subsection{The current release is broad but uneven}
 The current release \release{} contains \nRelRows{} measurements over
 \nRelForms{} formulations from \nRelDocs{} documents, including \nRelPatents{}
@@ -237,12 +382,61 @@ interquartile range is \nRelIQRlo--\nRelIQRhi\%. The sources use several
 amount conventions and describe cure systems, fillers, and test geometries
 with different levels of detail.
 
+The release is consequently best understood as a map of the evidence rather
+than as a uniform catalog. Some source families provide many formulations and
+many aging conditions; others provide one or two comparative values. Some
+sources name a commercial material in detail, while others provide only a
+generic description. These differences are not merely cosmetic. They affect
+which chemistry comparisons are possible and how much confidence can be
+placed in a trend.
+
 Figure~\ref{fig:dataset} summarizes this variation. The measurements are
 unevenly distributed across source documents, and the test conditions cluster
 around common industrial protocols while extending to other temperatures and
 times. This unevenness is why the report emphasizes source families and
 document-level comparison rather than treating every row as an independent
 piece of evidence.
+
+The field-coverage information in the figure also provides a guide for future
+reading. Temperature and time are often recoverable from a methods section,
+whereas specimen geometry and the exact standard may remain absent. A future
+release can therefore be improved in two ways: by adding entirely new source
+families and by completing the protocol information for documents that already
+contain useful measurements. The funnel does not distinguish these two kinds
+of progress by itself, so both should be reported separately in later updates.
+
+\subsection{What the release reveals about experimental practice}
+The source record shows that compression-set testing is not reported in one
+uniform way. Some studies are organized as systematic formulation series in
+which one filler or cure variable changes at a time. Other studies compare
+commercial materials, product families, or processing histories with less
+detail about the underlying chemistry. Both types of study can be valuable,
+but they support different conclusions. A controlled series is useful for
+studying a local formulation effect, whereas a product comparison may be more
+representative of an application but less informative about mechanism.
+
+The same distinction appears in the amount conventions. Recipes may be given
+relative to the base polymer, as percentages of the final mixture, in grams,
+or with only a qualitative statement that a component was included. These
+conventions are not interchangeable without assumptions. Retaining the
+original basis preserves the source's meaning and makes it possible to select
+only the comparable subset for a particular analysis.
+
+The test protocol is similarly heterogeneous. Common industrial holds create
+useful concentrations of data, but they can also make the literature appear
+more consistent than it is. Room-temperature measurements, long-duration
+aging, post-cured specimens, oil exposure, and different specimen geometries
+may represent different use cases rather than noisy versions of one test. The
+release keeps these distinctions visible so that future comparisons can be
+organized around an application or a protocol instead of averaging unlike
+measurements together.
+
+This observation changes how the dataset should be used. The release is well
+suited to identifying repeated protocols, locating formulation families, and
+selecting candidate comparisons. It is not yet a substitute for an agreed
+qualification protocol. A future experimental campaign can use the release to
+choose formulations and then measure them under a common protocol, thereby
+separating formulation variation from differences in how the test was run.
 
 \begin{figure}[t]
   \centering
@@ -263,6 +457,14 @@ to fit the prediction. Conditions alone reached a leave-one-family-out
 $R^2$ of \nLofoConditions{} with a mean absolute error of
 \nLofoMaeConditions{} percentage points.
 
+This baseline has a practical interpretation. The test protocol is not a
+minor annotation attached after the chemistry; it is one of the strongest
+determinants of the reported number. A model that knows the aging temperature,
+time, and deflection has information about the severity of the test even when
+the source gives only a limited formulation description. That makes the
+conditions-only result a useful floor for judging whether additional chemistry
+information is helping.
+
 Adding stated viscosity, ingredient descriptions, combined descriptors, or
 ingredient categories changed the leave-one-family-out score by small amounts
 whose uncertainty intervals included zero. The best chemistry representation
@@ -272,12 +474,52 @@ substantially higher diagnostic score, including \nRandomCategories{} for
 ingredient categories, because related examples from the same document remain
 on both sides of the comparison.
 
+The difference between the two evaluation settings is itself informative. A
+random-row comparison can use the fingerprint of a document: formulations
+from one patent or article often share a base polymer, cure system, terminology,
+and testing habits. Holding out the source family asks the harder question of
+whether the same description can guide a prediction for a new source. The
+present record contains enough within-document regularity to support the first
+task, but not enough independent families to demonstrate the second.
+
 Figure~\ref{fig:ladder} presents this result as a model ladder. The main
 conclusion is a statement about evidence: the present release supports a
 useful condition-based baseline, but it does not yet support a claim that the
 available chemistry descriptions improve prediction for unseen source
 families. A larger and more balanced set of complete source families, or a
 trusted validation set, is needed to answer that question.
+
+The result sets a useful standard for the next stage. A new chemistry
+representation should improve the unseen-family comparison, remain stable
+when individual source families are removed, and make a difference large
+enough to affect an engineering choice. Until those conditions are met, the
+responsible conclusion is not that formulation chemistry has no effect. It is
+that the current release has not yet isolated that effect from source and
+protocol variation.
+
+\subsection{How the result should guide experiments}
+The present result suggests a staged experimental strategy. In the short term,
+the most valuable measurements are not necessarily those that maximize the
+number of formulations. They are measurements that connect a trusted
+formulation to a clearly specified protocol and that fill a gap in the current
+material classes. For example, a small matched set of composite and foam
+formulations tested under the same conditions could be more informative than a
+large collection in which each source uses a different test history.
+
+The next stage should also separate screening from qualification. The
+literature record can help identify candidates and reveal which ingredients or
+material classes recur across sources. Qualification measurements should then
+be run under a common protocol selected for the intended application. Keeping
+those purposes separate prevents a screening result from being treated as a
+direct replacement for an engineering test.
+
+This staged approach gives the collaboration a practical decision rule. If a
+new source adds a material class or protocol that is currently missing, it may
+be valuable even before its data improve a global score. If a new experiment
+repeats a well represented source family without clarifying the engineering
+threshold, it may add less information. The funnel, class labels, and
+condition-based baseline together provide the context needed to make that
+choice.
 
 \begin{figure}[t]
   \centering
@@ -309,6 +551,31 @@ the audit are therefore complementary: the funnel shows how many documents
 remain, while the audit tests whether the surviving values still mean what the
 source reported.
 
+Four recurring failure modes are especially important. First, a reprinted
+patent family can preserve the same property values while presenting a
+different or incomplete formulation table. Second, a chemical name can be
+plausible but still disagree with the source in a way that changes reactivity.
+Third, a table can shift a number into a neighboring column without producing
+an obviously impossible value. Fourth, a document can contain a complete
+recipe but report a result under conditions that are described only elsewhere
+or that apply to a different specimen. None of these errors is reliably
+detected by looking only at the final numerical range.
+
+The verification process therefore changed the project's definition of a
+usable result. A result is not simply a value that can be copied from a page.
+It is a value whose formulation, specimen, and protocol can be connected with
+enough confidence that another reader would understand what was measured. In
+some cases the appropriate outcome is to keep the value but mark a missing
+field. In other cases the right outcome is to leave the value out until the
+source can be resolved. This distinction keeps uncertainty visible instead of
+turning it into false precision.
+
+These lessons also affect future acquisition. New documents should be judged
+by the quality and diversity of the formulations they add, not only by the
+number of compression-set rows. A source with one carefully described
+composite or foam may be more valuable than a source with dozens of repeated
+examples whose chemistry and protocol cannot be separated.
+
 % ===========================================================================
 \section{Companion benchmark and broader value}
 % ===========================================================================
@@ -326,6 +593,181 @@ the complete formulation, the material class, and the test protocol. That
 connection makes it possible to ask which evidence is genuinely comparable
 and which apparent trend is only a consequence of how a document was written.
 
+The companion benchmark also clarified the role of evaluation. In a reference
+volume, the true answer is available for every selected table entry, so a
+reader can distinguish a transcription error from a disagreement caused by
+chemical interpretation. In the formulation record, by contrast, some
+disagreements reflect the source's own ambiguity. The benchmark supplied a
+controlled setting for improving reading and verification practices before
+those practices were used to make claims about modern formulations.
+
+The value of this connection extends beyond compression set. The same record
+can support questions about aging, hardness, tensile behavior, cure response,
+or other properties when the source provides them. The material-class labels
+also create a starting point for comparing dense composites with cellular
+materials. The current report focuses on compression set because it is the
+property for which the protocol and source coverage are presently most mature.
+
+% ===========================================================================
+\section{Changes in approach and reasons for change}
+% ===========================================================================
+The work began with the expectation that a large literature search would
+quickly produce a large modeling table. The evidence showed that this
+assumption was too simple. Many documents contain a property value but not a
+complete formulation, and many complete recipes do not provide the test
+conditions needed to compare the value with another source. The project
+therefore shifted emphasis from counting retrieved documents to measuring the
+progressive loss of information through the funnel.
+
+The second change was to treat the source document as the unit of context.
+Early comparisons can make several rows from one patent appear to be many
+independent experiments. In reality, those rows often share the same base
+polymer, preparation history, terminology, and testing convention. Holding out
+source families makes the prediction question more demanding, but it also
+matches the intended use: predicting a material described in a source that was
+not already part of the evidence used to establish the relationship.
+
+The third change was to make material classes explicit. The initial release
+could have reported one population of silicone formulations, but that would
+have hidden an important distinction for the collaborators. A filled solid
+elastomer and a cellular foam can both be described as silicone rubber while
+having different structures and different responses to load. The composite and
+foam labels are therefore included in the report as a first classification
+layer, with the overlap shown rather than suppressed.
+
+These changes made the report more conservative but also more useful. The
+project now explains not only the result it can produce but also why a larger
+or more detailed source record is needed before stronger chemistry claims can
+be made.
+
+% ===========================================================================
+\section{Actual or anticipated problems and actions to resolve them}
+% ===========================================================================
+The central anticipated problem is uneven source coverage. The current release
+contains many examples from a limited number of source families, while some
+silicone cure systems and product forms remain sparsely represented. Additional
+rows from an already well represented document may improve interpolation while
+doing little for transfer to a new family. Future acquisition will therefore
+track both the number of measurements and the diversity of source families.
+
+A second problem is ambiguity in formulation terminology. Sources use names
+such as silicone rubber, silicone gel, sponge, cellular rubber, and elastomer
+in ways that are not always consistent. The report addresses this by relying
+on the formulation evidence for the composite and foam labels, but some cases
+will still require expert review. The next stage will record the source's own
+product description alongside the operational classification so that the two
+are not confused.
+
+A third problem is incomplete test context. Temperature and time can often be
+recovered from nearby methods, but deflection, specimen geometry, medium, and
+post-cure history may remain absent. Those missing fields limit comparisons even
+when the value and recipe are clear. The action is to preserve the missingness,
+prioritize documents where a complete protocol is likely to be recoverable,
+and request trusted reference conditions from collaborators.
+
+A fourth problem is that a prediction error may not have the same engineering
+meaning for every application. A difference that is negligible for screening
+may be important for a long-life seal. The project therefore needs an
+application-level error threshold before it can decide how much additional
+data is enough. A collaborator's statement of the error that would change a
+design decision will make the next collection effort more targeted.
+
+The project has no reason to treat these problems as reasons to stop. They are
+the information needed to decide what to do next. The funnel identifies the
+missing source evidence, the class labels identify the missing material
+comparisons, and the baseline identifies the predictive improvement that has
+not yet been demonstrated.
+
+% ===========================================================================
+\section{What is the impact on society beyond science and technology?}
+% ===========================================================================
+Silicone seals and gaskets are used in applications where failure can create
+maintenance, safety, and reliability costs. Better organization of the
+evidence behind compression-set measurements can help engineers compare
+materials more carefully and identify when a published value does not describe
+the same test as the proposed application. The immediate project does not
+claim to replace qualification testing. Its contribution is to make the
+literature a more reliable starting point for deciding which materials and
+tests deserve that investment.
+
+The project also illustrates a broader practice for scientific data. A large
+collection is not automatically a useful collection. Showing what is removed
+by each requirement makes the limitations of a data resource visible to the
+people who may rely on it. That transparency can reduce overconfident use of
+models and make later improvements easier to evaluate.
+
+% ===========================================================================
+\section{What opportunities for training and professional development has the project provided?}
+% ===========================================================================
+This project has provided training at the intersection of polymer chemistry,
+literature analysis, data curation, and scientific communication. The work
+requires moving between a source page and the chemical meaning of a
+formulation, then explaining why a particular value can or cannot be compared
+with another value. That combination is different from either conventional
+literature review or conventional modeling.
+
+The work has also emphasized judgment and uncertainty. Researchers must learn
+to recognize when a source is specific enough to support a claim, when a
+generic description is still useful, and when an apparently complete table is
+not trustworthy. They must communicate not only the result of a curation
+decision but also the evidence that motivated it. This is an important skill
+for materials data work because the most serious errors are often plausible
+rather than obviously numerical.
+
+The composite and foam classification provides a concrete training example.
+It requires recognizing the function of an ingredient, distinguishing a
+blowing agent from a filler, and explaining why the two populations can
+overlap. It also gives collaborators a common vocabulary for reviewing future
+formulations and identifying which source descriptions need expert attention.
+
+% ===========================================================================
+\section{What is the impact on the principal discipline?}
+% ===========================================================================
+The project contributes to polymer and elastomer informatics by treating a
+formulated material, rather than an isolated repeat unit or ingredient, as the
+unit of analysis. This is important for silicone systems because the measured
+property emerges from a network containing a base polymer, a cure system,
+fillers, additives, and a processing history. A representation that keeps only
+the polymer name cannot preserve all of the factors that distinguish two
+commercially meaningful formulations.
+
+The project also makes the limits of the literature measurable. Instead of
+reporting only the number of documents found, it reports how many survive the
+requirements for a composition and a complete test protocol. That distinction
+can guide future data-collection efforts in elastomers and in other formulated
+materials where useful information is spread across tables, examples, and
+methods sections.
+
+Finally, the work establishes a benchmark for claims about chemistry. A
+chemistry representation should be judged on its ability to transfer to new
+source families, not only on its ability to interpolate among examples from a
+source it has already seen. This framing is directly relevant to the use of
+data-driven methods in polymer design.
+
+% ===========================================================================
+\section{What is the impact on other disciplines and potential users?}
+% ===========================================================================
+The record is relevant to chemical engineering, materials science, reliability
+engineering, and scientific data management. For chemical engineers, the
+record connects formulation variables to a property used in seal and gasket
+design. For materials scientists, it makes the distinction between dense
+filled elastomers and cellular materials visible. For reliability engineers,
+it emphasizes that the test protocol is part of the evidence rather than an
+afterthought.
+
+The work may also be useful to groups that are building data resources for
+other formulation classes. The funnel provides a simple way to separate a
+large discovery population from a smaller quantitative core. The source-linked
+approach provides a way to preserve the context needed for later review. The
+classification approach demonstrates how a material category can be defined
+from evidence in a recipe while still allowing overlapping categories.
+
+The immediate users of this report are collaborators who need to decide which
+silicone families and test regimes to study next. The report is intended to
+make that decision concrete. It shows what is already represented, where the
+record is thin, and why additional rows from the same source family may be
+less valuable than a smaller number of complete formulations from a new family.
+
 % ===========================================================================
 \section{How have the results been disseminated?}
 % ===========================================================================
@@ -341,6 +783,21 @@ The report also provides a common language for discussing material classes.
 Future meetings can distinguish filled silicone composites, silicone foams,
 and formulations that belong to both categories instead of comparing all of
 them as one population.
+
+The funnel and the classification table are designed for communication as
+much as for record keeping. They give collaborators a compact way to see why
+the current release is smaller than the starting literature set and what kind
+of formulation information is present in the result. This is particularly
+useful when deciding whether a new source should be prioritized for its
+property values, its chemistry, its test protocol, or its representation of a
+material class that is currently underrepresented.
+
+The report also preserves the distinction between what is measured and what
+is inferred. A source-linked measurement can be shared as evidence. A proposed
+material label or chemistry interpretation can be shared as a useful working
+description while remaining open to review. Keeping those two levels separate
+will make it easier to incorporate expert feedback without rewriting the
+history of the source record.
 
 % ===========================================================================
 \section{What do you plan to do next to accomplish the goals?}
@@ -362,6 +819,114 @@ decision at a named test protocol. That engineering threshold would determine
 whether the next effort should focus on more source families, more complete
 chemistry descriptions, or targeted measurements of composites and foams.
 
+The acquisition effort should also be organized around balance. The current
+record contains many examples of some cure systems and material classes and
+fewer examples of others. Future searches should deliberately seek source
+families that add missing combinations of base polymer, cure chemistry, filler
+content, foam structure, and test regime. The goal is not simply to increase
+the total number of measurements; it is to make the comparisons less dependent
+on a few documents.
+
+For composites, the next questions concern the type and amount of dispersed
+phase, surface treatment, and the way filler content interacts with cure and
+aging. For foams, the next questions concern the blowing-agent system, the
+resulting cellular structure, density where reported, and whether the test
+specimen is representative of the intended application. These questions can be
+addressed only when the relevant source descriptions are retained together
+with the compression-set result.
+
+The next report should therefore include both an expanded release and a clear
+account of what changed: newly added source families, newly resolved
+conditions, corrections to earlier records, and the number of formulations in
+each material class. Reporting the changes this way will make progress visible
+even when the predictive score does not change immediately.
+
+% ===========================================================================
+section{Overall assessment}
+% ===========================================================================
+The project has reached a useful intermediate point. The literature search has
+produced a broad starting population, while the successive screening steps have
+identified the smaller group that can support a defensible comparison. The
+funnel is therefore both a result and a guide for the next phase. It shows that
+the central challenge is not simply finding more papers. It is finding sources
+that report a formulation, a measured compression-set value, and enough test
+conditions for the value to be interpreted correctly.
+
+The material-class analysis adds another layer of meaning to that result. Of
+the 605 formulations in the current release, 525 are classified as composites
+and 115 as foams. Because 110 formulations belong to both groups, the classes
+should not be treated as mutually exclusive alternatives. The release contains
+415 composite-only formulations, 110 formulations that are both composites and
+foams, 5 foam-only formulations, and 75 formulations that are neither under the
+current operational definitions. This distribution makes the current emphasis
+clear: composite behavior is better represented than foam behavior, while the
+overlap between the groups must remain visible in future analyses.
+
+The same caution applies to the testing record. A reported compression-set
+percentage is not sufficient on its own to define a comparable observation.
+Temperature, duration, deflection, specimen details, and post-cure history can
+change the meaning of the result. The most useful records are consequently
+those that preserve the formulation and the test description together. This
+principle explains why the final release is smaller than the set of documents
+identified at the beginning, but also why the smaller release is more useful for
+engineering interpretation.
+
+Taken together, the present work establishes a transparent baseline for
+expansion. Future additions can be judged by the stage at which they enter the
+funnel, the material class they strengthen, the completeness of their test
+conditions, and whether they add a genuinely new source family. That reporting
+structure will keep the project focused on evidence that can support design
+decisions rather than on document counts alone.
+
+The stages of the funnel also distinguish several different kinds of progress.
+Moving from the downloaded document set to documents with an extracted property
+measures whether the literature search has reached technically relevant
+material. Moving from those documents to records with a compression-set value
+measures whether the desired property is actually reported. Requiring a
+formulation then changes the question from “What value was observed?” to “What
+material produced the value?” Finally, requiring the complete set of conditions
+changes the question to “Can this observation be compared with another one?”
+These are different accomplishments, and combining them into a single document
+count would hide where the main limitations occur.
+
+The funnel therefore provides a practical way to prioritize review. A source
+that reaches the composition stage but lacks one test condition may be worth
+revisiting if that condition is central to an engineering comparison. A source
+that reports a value but no usable formulation may be valuable as background
+evidence, but it should not be allowed to carry the same weight as a complete
+record. Similarly, a new document that adds a foam formulation may be more
+important to the scientific balance of the release than several additional
+composite measurements that repeat an already well-represented condition.
+
+This perspective is especially important for the composite and foam categories.
+The word “composite” describes the presence of an added phase in the recipe,
+whereas “foam” describes a cellular structure or a formulation containing a
+blowing-agent role. A formulation can satisfy both descriptions, as the current
+overlap demonstrates. Keeping the two labels independent preserves the ability
+to ask whether a measured change is associated with filler content, cellular
+structure, or both. It also prevents the report from treating foams as a
+separate universe that has no relationship to the filled elastomers elsewhere
+in the release.
+
+The categories that fall outside both definitions are informative as well.
+They include formulations that may be unfilled dense elastomers, formulations
+whose ingredients are not resolved sufficiently to assign a role, and records
+that do not belong to either targeted class. These formulations provide a useful
+comparison population. They can help identify whether a trend is specific to an
+added phase or cellular structure, or whether it is already present in the base
+material and cure system. Retaining them avoids narrowing the release so much
+that every observed difference is forced into a composite-versus-foam
+explanation.
+
+For this reason, the current release should be interpreted as a structured
+starting point rather than a final map of silicone performance. Its strongest
+contribution is that it makes the boundaries of the evidence visible. The
+source count, row count, condition count, and class count answer different
+questions, and each should remain available when the record is expanded. This
+will allow future reports to show not only that the collection grew, but also
+whether it became more complete, more balanced across material classes, and more
+useful for comparing formulations under the same test conditions.
+
 % ===========================================================================
 \section{Information retained in the research release}
 % ===========================================================================
@@ -377,6 +942,13 @@ The current release is a snapshot of the evidence available at this stage of
 the project. Its value is not only the number of rows; it is the traceability
 that allows a future correction, new material class, or new test condition to
 be connected back to the page on which the original claim was made.
+
+The release should be read with the same care as the sources themselves. A
+filled cell means that the source provided usable information; an empty field
+means that the source did not provide it or that the information could not be
+resolved with sufficient confidence. This convention protects later users from
+mistaking an assumption for an observation and makes the remaining work easy
+to describe.
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}
