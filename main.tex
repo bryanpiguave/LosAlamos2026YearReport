@@ -58,9 +58,8 @@ compression-set value, and only \nCsCondDocs{} provided a value together with
 a composition and the three essential test conditions: temperature, time, and
 deflection. After source checking and curation, the current release contains
 \nRelRows{} measurements over \nRelForms{} formulations from \nRelDocs{}
-documents. The decrease is not a failure of the project; it identifies the
-amount of the published record that is sufficiently described to support
-quantitative comparison.
+ documents. This narrowing shows how much of the published record is
+ sufficiently described to support quantitative comparison.
 
 The release also distinguishes the material classes that are important for
 interpreting the data. A formulation is counted as a composite when it
@@ -72,12 +71,12 @@ only, \nFoamOnlyForms{} foam only, and \nNeitherForms{} neither.
 
 The work produced a reliable baseline and a clear limitation. Test conditions
 alone give a leave-one-family-out $R^2$ of \nLofoConditions{} with a mean
-absolute error of \nLofoMaeConditions{} percentage points. The chemistry
-representations examined so far do not produce a statistically separable
-improvement when entire source families are held out. This does not mean that
-chemistry is unimportant. It means that the present record is still too small,
-too unevenly described, and too concentrated in a limited number of source
-families to establish a transferable chemistry effect.
+absolute error of \nLofoMaeConditions{} percentage points. When entire source
+families are held out, the chemistry representations examined so far do not
+produce a statistically separable improvement. The current record is still
+too small, unevenly described, and concentrated in too few source families to
+establish a transferable chemistry effect, although chemistry may still matter
+in a larger and more balanced collection.
 
 Taken together, these results define the present stage of the project. The
 work has moved beyond asking whether the literature contains silicone data at
@@ -94,8 +93,9 @@ Compression set is a useful engineering property because it measures how much
 of an imposed deformation remains after an elastomer has been held under load
 for a specified time and temperature \citep{astmd395}. It is directly related
 to the long-term performance of seals, but it is also strongly dependent on
-the test protocol. A value measured after 22~h at 175\degC{} is not directly
-interchangeable with a value measured after 70~h at 150\degC{}.
+the test protocol. Comparing a value measured after 22~h at 175\degC{} with
+one measured after 70~h at 150\degC{} requires accounting for those different
+temperatures and durations.
 
 The first goal is therefore to gather measurements together with the
 conditions that make them interpretable. The second is to preserve the
@@ -114,21 +114,19 @@ therefore asks two separate questions: what information can be recovered and
 checked, and how much predictive value does the recovered chemistry add beyond
 the test conditions themselves?
 
-These goals are deliberately connected because a prediction made from a
-numerical value that cannot be traced to a source is not a useful engineering
-result. A
-chemistry label that does not distinguish a filled elastomer from an expanded
-foam can make a model appear more general than it is. Conversely, a carefully
+These goals are deliberately connected because a prediction becomes useful for
+engineering only when its numerical value can be traced to a source. Without a
+clear distinction between a filled elastomer and an expanded foam, a chemistry
+label can make a model appear more general than it is. Conversely, a carefully
 curated but very small record may be unable to demonstrate an effect that is
 chemically real. The project treats source quality, material classification,
 and prediction as parts of the same research problem.
 
-The intended outcome is not a universal model for every silicone product. It
-is a dependable foundation for deciding which comparisons are meaningful and
-which experiments or source acquisitions would most improve the evidence. In
-that sense, a clear negative result about the present corpus is useful: it
-prevents a high apparent score from being mistaken for reliable transfer to a
-new material family.
+The project is aimed at a dependable foundation for deciding which comparisons
+are meaningful and which experiments or source acquisitions would most improve
+the evidence. In that sense, a clear negative result about the present corpus
+is useful because it prevents a high apparent score from being mistaken for
+reliable transfer to a new material family.
 
 % ===========================================================================
 \section{What was accomplished under these goals?}
@@ -204,11 +202,12 @@ table, and identify the cure system in a separate preparation step. Those
 pieces cannot be treated as independent observations. They describe one
 material and must remain together if the result is to be interpreted.
 
-The same principle applies to anonymous labels. ``Component A'' is not a
-chemical identity by itself, but a document may define Component A as a
-vinyl-terminated polysiloxane with a stated viscosity and Component B as a
-hydride-containing crosslinker. The useful information is the document's
-definition, not the label. Trade names and generic descriptions were retained
+The same principle applies to anonymous labels. The label ``Component A''
+acquires chemical meaning only when the document defines it; in one example,
+the source identifies it as a vinyl-terminated polysiloxane with a stated
+viscosity and identifies Component B as a hydride-containing crosslinker. What
+matters is the definition supplied by the document, while the label alone
+carries little information. Trade names and generic descriptions were retained
 when they carried information about the formulation, and uncertain identities
 were kept visibly uncertain rather than replaced with a convenient guess.
 
@@ -221,7 +220,8 @@ the relevant measurements only when the source supported that connection.
 
 This step is especially important for aging studies. A source may describe a
 pre-aging exposure, a cure schedule, and a compression-set hold in the same
-experimental section. These are related events but not interchangeable fields.
+experimental section. These events are related, but each requires a separate
+field in the record.
 The record keeps them distinct so that a future user can ask whether two
 measurements used the same aging history rather than assuming that every
 temperature mentioned in a document was the test temperature.
@@ -233,14 +233,13 @@ deflection were correct in every checked case. The audit also identified
 specific table-reading failures and source-family duplicates that would have
 been difficult to detect from numerical consistency alone.
 
-Verification was treated as part of the scientific result rather than as a
-final formatting step. When a value disagreed with a source page, the question
-was not only whether the number looked plausible. Review asked whether the
-formulation row, the specimen, and the stated test conditions were aligned.
+Verification was treated as a scientific result in its own right. When a value
+disagreed with a source page, review considered both its numerical plausibility
+and the alignment of the formulation row, specimen, and stated test conditions.
 This distinction matters because a shifted table can produce a chemically
 reasonable formulation with the wrong amount, or a reasonable value with the
-wrong protocol. The audit therefore examined the relationship among fields,
-not just each field in isolation.
+wrong protocol. The audit therefore examined the relationships among fields
+as well as the fields themselves.
 
 \subsection{Specific Objectives}
 \textbf{Objective 1 -- Build a quantitative source record.} The project
@@ -439,8 +438,9 @@ measurements together.
 
 This observation changes how the dataset should be used. The release is well
 suited to identifying repeated protocols, locating formulation families, and
-selecting candidate comparisons. It is not yet a substitute for an agreed
-qualification protocol. A future experimental campaign can use the release to
+selecting candidate comparisons. It should serve as a starting point for an
+agreed qualification protocol rather than as a substitute for one. A future
+experimental campaign can use the release to
 choose formulations and then measure them under a common protocol, thereby
 separating formulation variation from differences in how the test was run.
 
@@ -463,9 +463,9 @@ to fit the prediction. Conditions alone reached a leave-one-family-out
 $R^2$ of \nLofoConditions{} with a mean absolute error of
 \nLofoMaeConditions{} percentage points.
 
-This baseline has a practical interpretation because the test protocol is not
-a minor annotation attached after the chemistry; it is one of the strongest
-determinants of the reported number. A model that knows the aging temperature,
+This baseline has a practical interpretation because the test protocol is one
+of the strongest determinants of the reported number, rather than a minor
+annotation attached after the chemistry. A model that knows the aging temperature,
 time, and deflection has information about the severity of the test even when
 the source gives only a limited formulation description. That makes the
 conditions-only result a useful floor for judging whether additional chemistry
@@ -490,24 +490,24 @@ task, but not enough independent families to demonstrate the second.
 
 Figure~\ref{fig:ladder} presents this result as a model ladder. The main
 conclusion is a statement about evidence: the present release supports a
-useful condition-based baseline, but it does not yet support a claim that the
-available chemistry descriptions improve prediction for unseen source
-families. A larger and more balanced set of complete source families, or a
-trusted validation set, is needed to answer that question.
+useful condition-based baseline, while evidence for a chemistry improvement
+across unseen source families remains insufficient. A larger and more balanced
+set of complete source families, or a trusted validation set, is needed to
+answer that question.
 
 The result sets a useful standard for the next stage. A new chemistry
 representation should improve the unseen-family comparison, remain stable
 when individual source families are removed, and make a difference large
 enough to affect an engineering choice. Until those conditions are met, the
-responsible conclusion is not that formulation chemistry has no effect. It is
-that the current release has not yet isolated that effect from source and
-protocol variation.
+responsible conclusion is that the current release has not yet separated
+formulation chemistry from source and protocol variation. This limitation
+concerns the evidence currently available, rather than the possibility that
+chemistry affects the property.
 
 \subsection{How the result should guide experiments}
 The present result suggests a staged experimental strategy. In the short term,
-the most valuable measurements are not necessarily those that maximize the
-number of formulations. They are measurements that connect a trusted
-formulation to a clearly specified protocol and that fill a gap in the current
+the most valuable measurements will connect a trusted formulation to a clearly
+specified protocol and fill a gap in the current
 material classes. For example, a small matched set of composite and foam
 formulations tested under the same conditions could be more informative than a
 large collection in which each source uses a different test history.
@@ -568,13 +568,12 @@ or that apply to a different specimen. None of these errors is reliably
 detected by looking only at the final numerical range.
 
 The verification process therefore changed the project's definition of a
-usable result. A result is not simply a value that can be copied from a page.
-It is a value whose formulation, specimen, and protocol can be connected with
-enough confidence that another reader would understand what was measured. In
-some cases the appropriate outcome is to keep the value but mark a missing
-field. In other cases the right outcome is to leave the value out until the
-source can be resolved. This distinction keeps uncertainty visible instead of
-turning it into false precision.
+usable result. A usable result combines a reported value with enough
+formulation, specimen, and protocol context that another reader can understand
+what was measured. In some cases the appropriate outcome is to keep the value
+but mark a missing field. In other cases the right outcome is to leave the
+value out until the source can be resolved. This distinction keeps uncertainty
+visible instead of turning it into false precision.
 
 These lessons should also guide future acquisition, because new documents
 should be judged by the quality and diversity of the formulations they add, not
@@ -642,9 +641,8 @@ foam labels are therefore included in the report as a first classification
 layer, with the overlap shown rather than suppressed.
 
 These changes made the report more conservative but also more useful. The
-project now explains not only the result it can produce but also why a larger
-or more detailed source record is needed before stronger chemistry claims can
-be made.
+project now explains what result it can produce and why a larger or more
+detailed source record is needed before stronger chemistry claims can be made.
 
 % ===========================================================================
 \section{Actual or anticipated problems and actions to resolve them}
@@ -715,8 +713,8 @@ literature review or conventional modeling.
 The work has also emphasized judgment and uncertainty. Researchers must learn
 to recognize when a source is specific enough to support a claim, when a
 generic description is still useful, and when an apparently complete table is
-not trustworthy. They must communicate not only the result of a curation
-decision but also the evidence that motivated it. This is an important skill
+unreliable. They must communicate the curation decision together with the
+evidence that motivated it. This is an important skill
 for materials data work because the most serious errors are often plausible
 rather than obviously numerical.
 
@@ -745,8 +743,8 @@ materials where useful information is spread across tables, examples, and
 methods sections.
 
 Finally, the work establishes a benchmark for claims about chemistry. A
-chemistry representation should be judged on its ability to transfer to new
-source families, not only on its ability to interpolate among examples from a
+chemistry representation should be judged by how well it transfers to new
+source families, rather than by how well it interpolates among examples from a
 source it has already seen. This framing is directly relevant to the use of
 data-driven methods in polymer design.
 
@@ -830,9 +828,8 @@ The acquisition effort should also be organized around balance. The current
 record contains many examples of some cure systems and material classes and
 fewer examples of others. Future searches should deliberately seek source
 families that add missing combinations of base polymer, cure chemistry, filler
-content, foam structure, and test regime. The goal is not simply to increase
-the total number of measurements; it is to make the comparisons less dependent
-on a few documents.
+content, foam structure, and test regime. The aim is to make comparisons less
+dependent on a few documents while expanding the total number of measurements.
 
 For composites, the next questions concern the type and amount of dispersed
 phase, surface treatment, and the way filler content interacts with cure and
@@ -854,10 +851,10 @@ even when the predictive score does not change immediately.
 The project has reached a useful intermediate point. The literature search has
 produced a broad starting population, while the successive screening steps have
 identified the smaller group that can support a defensible comparison. The
-funnel is therefore both a result and a guide for the next phase. It shows that
-the central challenge is not simply finding more papers. It is finding sources
-that report a formulation, a measured compression-set value, and enough test
-conditions for the value to be interpreted correctly.
+funnel is therefore both a result and a guide for the next phase. The central
+challenge is to find sources that report a formulation, a measured
+compression-set value, and enough test conditions for the value to be
+interpreted correctly.
 
 The material-class analysis adds another layer of meaning to that result. Of
 the 605 formulations in the current release, 525 are classified as composites
@@ -930,8 +927,8 @@ starting point rather than a final map of silicone performance. Its strongest
 contribution is that it makes the boundaries of the evidence visible. The
 source count, row count, condition count, and class count answer different
 questions, and each should remain available when the record is expanded. This
-will allow future reports to show not only that the collection grew, but also
-whether it became more complete, more balanced across material classes, and more
+will allow future reports to show how the collection grew, whether it became
+more complete and balanced across material classes, and whether it became more
 useful for comparing formulations under the same test conditions.
 
 % ===========================================================================
@@ -946,9 +943,10 @@ as missing so that future users can distinguish a source that did not report a
 quantity from a formulation that did not contain or require it.
 
 The current release is a snapshot of the evidence available at this stage of
-the project. Its value is not only the number of rows; it is the traceability
-that allows a future correction, new material class, or new test condition to
-be connected back to the page on which the original claim was made.
+the project. Its value lies in the traceability that allows a future
+correction, new material class, or new test condition to be connected back to
+the page on which the original claim was made, as well as in the number of rows
+it contains.
 
 The release should be read with the same care as the sources themselves. A
 filled cell means that the source provided usable information; an empty field
